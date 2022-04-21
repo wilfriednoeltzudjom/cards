@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="404" height="550" viewBox="0 0 404 550">
+  <g id="seven_diamond" transform="translate(-472 -616)">
+    <rect id="Rectangle_23" data-name="Rectangle 23" width="404" height="550" rx="8" transform="translate(472 616)" fill="#fff"/>
+    <rect id="Rectangle_24" data-name="Rectangle 24" width="296" height="454" transform="translate(526 664)" fill="#fff"/>
+    <text id="_7" data-name="7" transform="translate(484 664)" fill="#bb371a" font-size="48" font-family="Georama" font-weight="800"><tspan x="0" y="0">7</tspan></text>
+    <text id="_7-2" data-name="7" transform="translate(864 1118) rotate(180)" fill="#bb371a" font-size="48" font-family="Georama" font-weight="800"><tspan x="0" y="0">7</tspan></text>
+    <rect id="Rectangle_74" data-name="Rectangle 74" width="24" height="24" transform="translate(499.03 678) rotate(45)" fill="#bb371a"/>
+    <rect id="Rectangle_78" data-name="Rectangle 78" width="24" height="24" transform="translate(848.97 1070.059) rotate(45)" fill="#bb371a"/>
+    <rect id="Rectangle_84" data-name="Rectangle 84" width="73.172" height="73.172" transform="translate(577.779 664) rotate(45)" fill="#bb371a"/>
+    <rect id="Rectangle_82" data-name="Rectangle 82" width="73.172" height="73.172" transform="translate(769.259 839.269) rotate(45)" fill="#bb371a"/>
+    <rect id="Rectangle_85" data-name="Rectangle 85" width="73.172" height="73.172" transform="translate(577.778 839.25) rotate(45)" fill="#bb371a"/>
+    <rect id="Rectangle_86" data-name="Rectangle 86" width="73.172" height="73.172" transform="translate(577.778 1014.5) rotate(45)" fill="#bb371a"/>
+    <rect id="Rectangle_87" data-name="Rectangle 87" width="73.172" height="73.172" transform="translate(769.26 1014.519) rotate(45)" fill="#bb371a"/>
+    <rect id="Rectangle_83" data-name="Rectangle 83" width="73.172" height="73.172" transform="translate(769.26 664.019) rotate(45)" fill="#bb371a"/>
+    <rect id="Rectangle_88" data-name="Rectangle 88" width="73.172" height="73.172" transform="translate(673.5 751.76) rotate(45)" fill="#bb371a"/>
+  </g>
+</svg>

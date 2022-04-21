@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="404" height="550" viewBox="0 0 404 550">
+  <g id="two_clover" transform="translate(-472 -26)">
+    <rect id="Rectangle_13" data-name="Rectangle 13" width="404" height="550" rx="8" transform="translate(472 26)" fill="#fff"/>
+    <rect id="Rectangle_14" data-name="Rectangle 14" width="296" height="454" transform="translate(526 74)" fill="#fff"/>
+    <text id="_2" data-name="2" transform="translate(484 74)" font-size="48" font-family="Georama" font-weight="800"><tspan x="0" y="0">2</tspan></text>
+    <path id="Union_14" data-name="Union 14" d="M297.392,25l2.274-6.745a8.32,8.32,0,1,1-5.68-14.688,8.32,8.32,0,1,1,16.026,0,8.32,8.32,0,1,1-5.591,14.762L306.672,25Z" transform="translate(199 95)"/>
+    <text id="_2-2" data-name="2" transform="translate(864 528) rotate(180)" font-size="48" font-family="Georama" font-weight="800"><tspan x="0" y="0">2</tspan></text>
+    <path id="Union_12" data-name="Union 12" d="M297.392,25l2.274-6.745a8.32,8.32,0,1,1-5.68-14.688,8.32,8.32,0,1,1,16.026,0,8.32,8.32,0,1,1-5.591,14.762L306.672,25Z" transform="translate(1150 507) rotate(180)"/>
+    <path id="Union_13" data-name="Union 13" d="M322.846,96.5,330.2,74.684a26.91,26.91,0,1,1-18.37-47.508,26.91,26.91,0,1,1,51.835,0,26.91,26.91,0,1,1-18.083,47.746L352.861,96.5Z" transform="translate(336.25 81)"/>
+    <path id="Union_15" data-name="Union 15" d="M322.846,96.5,330.2,74.684a26.91,26.91,0,1,1-18.37-47.508,26.91,26.91,0,1,1,51.835,0,26.91,26.91,0,1,1-18.083,47.746L352.861,96.5Z" transform="translate(1011.75 521) rotate(180)"/>
+  </g>
+</svg>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="404" height="550" viewBox="0 0 404 550">
+  <g id="nine_diamond" transform="translate(-1346 -616)">
+    <rect id="Rectangle_27" data-name="Rectangle 27" width="404" height="550" rx="8" transform="translate(1346 616)" fill="#fff"/>
+    <rect id="Rectangle_28" data-name="Rectangle 28" width="296" height="454" transform="translate(1400 664)" fill="#fff"/>
+    <text id="_9" data-name="9" transform="translate(1358 664)" fill="#bb371a" font-size="48" font-family="Georama" font-weight="800"><tspan x="0" y="0">9</tspan></text>
+    <text id="_9-2" data-name="9" transform="translate(1738 1118) rotate(180)" fill="#bb371a" font-size="48" font-family="Georama" font-weight="800"><tspan x="0" y="0">9</tspan></text>
+    <rect id="Rectangle_76" data-name="Rectangle 76" width="24" height="24" transform="translate(1373.03 678) rotate(45)" fill="#bb371a"/>
+    <rect id="Rectangle_80" data-name="Rectangle 80" width="24" height="24" transform="translate(1722.029 1070.059) rotate(45)" fill="#bb371a"/>
+    <rect id="Rectangle_98" data-name="Rectangle 98" width="73.172" height="73.172" transform="translate(1451.896 664.019) rotate(45)" fill="#bb371a"/>
+    <rect id="Rectangle_99" data-name="Rectangle 99" width="73.172" height="73.172" transform="translate(1451.896 780.5) rotate(45)" fill="#bb371a"/>
+    <rect id="Rectangle_104" data-name="Rectangle 104" width="73.172" height="73.172" transform="translate(1643.318 780.5) rotate(45)" fill="#bb371a"/>
+    <rect id="Rectangle_103" data-name="Rectangle 103" width="73.172" height="73.172" transform="translate(1451.896 898.019) rotate(45)" fill="#bb371a"/>
+    <rect id="Rectangle_105" data-name="Rectangle 105" width="73.172" height="73.172" transform="translate(1643.318 898.019) rotate(45)" fill="#bb371a"/>
+    <rect id="Rectangle_102" data-name="Rectangle 102" width="73.172" height="73.172" transform="translate(1451.837 1014.5) rotate(45)" fill="#bb371a"/>
+    <rect id="Rectangle_101" data-name="Rectangle 101" width="73.172" height="73.172" transform="translate(1643.318 1014.5) rotate(45)" fill="#bb371a"/>
+    <rect id="Rectangle_97" data-name="Rectangle 97" width="73.172" height="73.172" transform="translate(1643.318 664) rotate(45)" fill="#bb371a"/>
+    <rect id="Rectangle_106" data-name="Rectangle 106" width="73.172" height="73.172" transform="translate(1548 846.26) rotate(45)" fill="#bb371a"/>
+  </g>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="404" height="550" viewBox="0 0 404 550">
+  <g id="five_spade" transform="translate(-1783 -26)">
+    <rect id="Rectangle_19" data-name="Rectangle 19" width="404" height="550" rx="8" transform="translate(1783 26)" fill="#fff"/>
+    <rect id="Rectangle_20" data-name="Rectangle 20" width="296" height="454" transform="translate(1837 74)" fill="#fff"/>
+    <text id="_5" data-name="5" transform="translate(1795 74)" font-size="48" font-family="Georama" font-weight="800"><tspan x="0" y="0">5</tspan></text>
+    <text id="_5-2" data-name="5" transform="translate(2175 528) rotate(180)" font-size="48" font-family="Georama" font-weight="800"><tspan x="0" y="0">5</tspan></text>
+    <path id="Union_115" data-name="Union 115" d="M297.392,25l2.274-6.745A8.32,8.32,0,1,1,289,5.486L302-7,315,5.486a8.32,8.32,0,0,1-10.581,12.843L306.672,25Z" transform="translate(1508 95)"/>
+    <path id="Union_125" data-name="Union 125" d="M297.392,25l2.274-6.745A8.32,8.32,0,1,1,289,5.486L302-7,315,5.486a8.32,8.32,0,0,1-10.581,12.843L306.672,25Z" transform="translate(2461 507) rotate(180)"/>
+    <path id="Union_147" data-name="Union 147" d="M322.846,96.5,330.2,74.684a26.911,26.911,0,1,1-34.511-41.3L337.75-7l42.059,40.384a26.911,26.911,0,0,1-34.224,41.538L352.861,96.5Z" transform="translate(1552 81)"/>
+    <path id="Union_153" data-name="Union 153" d="M322.846,96.5,330.2,74.684a26.911,26.911,0,1,1-34.511-41.3L337.75-7l42.059,40.384a26.911,26.911,0,0,1-34.224,41.538L352.861,96.5Z" transform="translate(1647.25 256.25)"/>
+    <path id="Union_145" data-name="Union 145" d="M322.846,96.5,330.2,74.684a26.911,26.911,0,1,1-34.511-41.3L337.75-7l42.059,40.384a26.911,26.911,0,0,1-34.224,41.538L352.861,96.5Z" transform="translate(1742.5 81)"/>
+    <path id="Union_149" data-name="Union 149" d="M322.846,96.5,330.2,74.684a26.911,26.911,0,1,1-34.511-41.3L337.75-7l42.059,40.384a26.911,26.911,0,0,1-34.224,41.538L352.861,96.5Z" transform="translate(2227.5 521) rotate(180)"/>
+    <path id="Union_151" data-name="Union 151" d="M322.846,96.5,330.2,74.684a26.911,26.911,0,1,1-34.511-41.3L337.75-7l42.059,40.384a26.911,26.911,0,0,1-34.224,41.538L352.861,96.5Z" transform="translate(2418 521) rotate(180)"/>
+  </g>
+</svg>

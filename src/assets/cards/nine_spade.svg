@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="404" height="550" viewBox="0 0 404 550">
+  <g id="nine_spade" transform="translate(-1346 -616)">
+    <rect id="Rectangle_27" data-name="Rectangle 27" width="404" height="550" rx="8" transform="translate(1346 616)" fill="#fff"/>
+    <rect id="Rectangle_28" data-name="Rectangle 28" width="296" height="454" transform="translate(1400 664)" fill="#fff"/>
+    <text id="_9" data-name="9" transform="translate(1358 664)" font-size="48" font-family="Georama" font-weight="800"><tspan x="0" y="0">9</tspan></text>
+    <text id="_9-2" data-name="9" transform="translate(1738 1118) rotate(180)" font-size="48" font-family="Georama" font-weight="800"><tspan x="0" y="0">9</tspan></text>
+    <path id="Union_163" data-name="Union 163" d="M297.392,25l2.274-6.745A8.32,8.32,0,1,1,289,5.486L302-7,315,5.486a8.32,8.32,0,0,1-10.581,12.843L306.672,25Z" transform="translate(1072 685)"/>
+    <path id="Union_171" data-name="Union 171" d="M297.392,25l2.274-6.745A8.32,8.32,0,1,1,289,5.486L302-7,315,5.486a8.32,8.32,0,0,1-10.581,12.843L306.672,25Z" transform="translate(2024 1097) rotate(180)"/>
+    <path id="Union_219" data-name="Union 219" d="M322.846,96.5,330.2,74.684a26.911,26.911,0,1,1-34.511-41.3L337.75-7l42.059,40.384a26.911,26.911,0,0,1-34.224,41.538L352.861,96.5Z" transform="translate(1115 671)"/>
+    <path id="Union_233" data-name="Union 233" d="M322.846,96.5,330.2,74.684a26.911,26.911,0,1,1-34.511-41.3L337.75-7l42.059,40.384a26.911,26.911,0,0,1-34.224,41.538L352.861,96.5Z" transform="translate(1210.25 839.25)"/>
+    <path id="Union_225" data-name="Union 225" d="M322.846,96.5,330.2,74.684a26.911,26.911,0,1,1-34.511-41.3L337.75-7l42.059,40.384a26.911,26.911,0,0,1-34.224,41.538L352.861,96.5Z" transform="translate(1114 787.5)"/>
+    <path id="Union_231" data-name="Union 231" d="M322.846,96.5,330.2,74.684a26.911,26.911,0,1,1-34.511-41.3L337.75-7l42.059,40.384a26.911,26.911,0,0,1-34.224,41.538L352.861,96.5Z" transform="translate(1306.5 787.5)"/>
+    <path id="Union_217" data-name="Union 217" d="M322.846,96.5,330.2,74.684a26.911,26.911,0,1,1-34.511-41.3L337.75-7l42.059,40.384a26.911,26.911,0,0,1-34.224,41.538L352.861,96.5Z" transform="translate(1307.5 671)"/>
+    <path id="Union_223" data-name="Union 223" d="M322.846,96.5,330.2,74.684a26.911,26.911,0,1,1-34.511-41.3L337.75-7l42.059,40.384a26.911,26.911,0,0,1-34.224,41.538L352.861,96.5Z" transform="translate(1790.5 1111) rotate(180)"/>
+    <path id="Union_227" data-name="Union 227" d="M322.846,96.5,330.2,74.684a26.911,26.911,0,1,1-34.511-41.3L337.75-7l42.059,40.384a26.911,26.911,0,0,1-34.224,41.538L352.861,96.5Z" transform="translate(1789.5 994.5) rotate(180)"/>
+    <path id="Union_229" data-name="Union 229" d="M322.846,96.5,330.2,74.684a26.911,26.911,0,1,1-34.511-41.3L337.75-7l42.059,40.384a26.911,26.911,0,0,1-34.224,41.538L352.861,96.5Z" transform="translate(1982 994.5) rotate(180)"/>
+    <path id="Union_221" data-name="Union 221" d="M322.846,96.5,330.2,74.684a26.911,26.911,0,1,1-34.511-41.3L337.75-7l42.059,40.384a26.911,26.911,0,0,1-34.224,41.538L352.861,96.5Z" transform="translate(1983 1111) rotate(180)"/>
+  </g>
+</svg>

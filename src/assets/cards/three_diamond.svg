@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="404" height="550" viewBox="0 0 404 550">
+  <g id="three_diamond" transform="translate(-909 -26)">
+    <rect id="Rectangle_15" data-name="Rectangle 15" width="404" height="550" rx="8" transform="translate(909 26)" fill="#fff"/>
+    <rect id="Rectangle_16" data-name="Rectangle 16" width="296" height="454" transform="translate(963 74)" fill="#fff"/>
+    <text id="_3" data-name="3" transform="translate(921 74)" fill="#bb371a" font-size="48" font-family="Georama" font-weight="800"><tspan x="0" y="0">3</tspan></text>
+    <text id="_3-2" data-name="3" transform="translate(1301 528) rotate(180)" fill="#bb371a" font-size="48" font-family="Georama" font-weight="800"><tspan x="0" y="0">3</tspan></text>
+    <rect id="Rectangle_52" data-name="Rectangle 52" width="24" height="24" transform="translate(1285.029 480.059) rotate(45)" fill="#bb371a"/>
+    <rect id="Rectangle_46" data-name="Rectangle 46" width="73.172" height="73.172" transform="translate(1111 74) rotate(45)" fill="#bb371a"/>
+    <rect id="Rectangle_47" data-name="Rectangle 47" width="73.172" height="73.172" transform="translate(1111 424.5) rotate(45)" fill="#bb371a"/>
+    <rect id="Rectangle_48" data-name="Rectangle 48" width="73.172" height="73.172" transform="translate(1108.5 249.26) rotate(45)" fill="#bb371a"/>
+    <rect id="Rectangle_49" data-name="Rectangle 49" width="24" height="24" transform="translate(936.5 88) rotate(45)" fill="#bb371a"/>
+  </g>
+</svg>

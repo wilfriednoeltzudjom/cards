@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="404" height="550" viewBox="0 0 404 550">
+  <g id="king_diamond" transform="translate(-909 -1206)">
+    <g id="Group_7" data-name="Group 7">
+      <rect id="Rectangle_35" data-name="Rectangle 35" width="404" height="550" rx="8" transform="translate(909 1206)" fill="#fff"/>
+      <rect id="Rectangle_36" data-name="Rectangle 36" width="296" height="454" rx="16" transform="translate(963 1254)" fill="#bb371a"/>
+      <text id="K" transform="translate(921 1254)" fill="#bb371a" font-size="48" font-family="Georama" font-weight="800"><tspan x="0" y="0">K</tspan></text>
+      <text id="K-2" data-name="K" transform="translate(1301 1708) rotate(180)" fill="#bb371a" font-size="48" font-family="Georama" font-weight="800"><tspan x="0" y="0">K</tspan></text>
+      <rect id="Rectangle_120" data-name="Rectangle 120" width="24" height="24" transform="translate(938.03 1268) rotate(45)" fill="#bb371a"/>
+      <rect id="Rectangle_122" data-name="Rectangle 122" width="24" height="24" transform="translate(1284.971 1660.059) rotate(45)" fill="#bb371a"/>
+      <rect id="Rectangle_133" data-name="Rectangle 133" width="59.648" height="59.648" transform="translate(1015.023 1264) rotate(45)" fill="#fff"/>
+      <rect id="Rectangle_134" data-name="Rectangle 134" width="59.648" height="59.648" transform="translate(1206.978 1613.645) rotate(45)" fill="#fff"/>
+      <rect id="Rectangle_132" data-name="Rectangle 132" width="132.583" height="132.583" transform="translate(1111.656 1387.25) rotate(45)" fill="#fff"/>
+      <rect id="Rectangle_131" data-name="Rectangle 131" width="69.12" height="69.12" transform="translate(1111.656 1432.125) rotate(45)" fill="#bb371a"/>
+    </g>
+  </g>
+</svg>

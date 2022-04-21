@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="404" height="550" viewBox="0 0 404 550">
+  <g id="jack_diamond" transform="translate(-35 -1206)">
+    <rect id="Rectangle_31" data-name="Rectangle 31" width="404" height="550" rx="8" transform="translate(35 1206)" fill="#fff"/>
+    <rect id="Rectangle_32" data-name="Rectangle 32" width="296" height="454" rx="16" transform="translate(89 1254)" fill="#bb371a"/>
+    <text id="J" transform="translate(47 1254)" fill="#bb371a" font-size="48" font-family="Georama" font-weight="800"><tspan x="0" y="0">J</tspan></text>
+    <text id="J-2" data-name="J" transform="translate(427 1708) rotate(180)" fill="#bb371a" font-size="48" font-family="Georama" font-weight="800"><tspan x="0" y="0">J</tspan></text>
+    <rect id="Rectangle_117" data-name="Rectangle 117" width="24" height="24" transform="translate(59.029 1268) rotate(45)" fill="#bb371a"/>
+    <rect id="Rectangle_118" data-name="Rectangle 118" width="24" height="24" transform="translate(414.029 1660.059) rotate(45)" fill="#bb371a"/>
+    <rect id="Rectangle_123" data-name="Rectangle 123" width="59.648" height="59.648" transform="translate(140.367 1264) rotate(45)" fill="#fff"/>
+    <rect id="Rectangle_124" data-name="Rectangle 124" width="59.648" height="59.648" transform="translate(332.322 1613.645) rotate(45)" fill="#fff"/>
+    <rect id="Rectangle_125" data-name="Rectangle 125" width="132.583" height="132.583" transform="translate(237 1387.25) rotate(45)" fill="#fff"/>
+    <rect id="Rectangle_126" data-name="Rectangle 126" width="69.12" height="69.12" transform="translate(237 1432.125) rotate(45)" fill="#bb371a"/>
+  </g>
+</svg>

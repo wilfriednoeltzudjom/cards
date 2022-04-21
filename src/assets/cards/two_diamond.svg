@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="404" height="550" viewBox="0 0 404 550">
+  <g id="two_diamond" transform="translate(-472 -26)">
+    <rect id="Rectangle_13" data-name="Rectangle 13" width="404" height="550" rx="8" transform="translate(472 26)" fill="#fff"/>
+    <rect id="Rectangle_14" data-name="Rectangle 14" width="296" height="454" transform="translate(526 74)" fill="#fff"/>
+    <text id="_2" data-name="2" transform="translate(484 74)" fill="#bb371a" font-size="48" font-family="Georama" font-weight="800"><tspan x="0" y="0">2</tspan></text>
+    <text id="_2-2" data-name="2" transform="translate(864 528) rotate(180)" fill="#bb371a" font-size="48" font-family="Georama" font-weight="800"><tspan x="0" y="0">2</tspan></text>
+    <rect id="Rectangle_37" data-name="Rectangle 37" width="24" height="24" transform="translate(499.5 88) rotate(45)" fill="#bb371a"/>
+    <rect id="Rectangle_50" data-name="Rectangle 50" width="24" height="24" transform="translate(848.029 480.059) rotate(45)" fill="#bb371a"/>
+    <rect id="Rectangle_44" data-name="Rectangle 44" width="73.172" height="73.172" transform="translate(674 74) rotate(45)" fill="#bb371a"/>
+    <rect id="Rectangle_45" data-name="Rectangle 45" width="73.172" height="73.172" transform="translate(674 424.5) rotate(45)" fill="#bb371a"/>
+  </g>
+</svg>

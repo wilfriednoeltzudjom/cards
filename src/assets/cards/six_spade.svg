@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="404" height="550" viewBox="0 0 404 550">
+  <g id="six_spade" transform="translate(-35 -616)">
+    <rect id="Rectangle_21" data-name="Rectangle 21" width="404" height="550" rx="8" transform="translate(35 616)" fill="#fff"/>
+    <rect id="Rectangle_22" data-name="Rectangle 22" width="296" height="454" transform="translate(89 664)" fill="#fff"/>
+    <text id="_6" data-name="6" transform="translate(47 664)" font-size="48" font-family="Georama" font-weight="800"><tspan x="0" y="0">6</tspan></text>
+    <text id="_6-2" data-name="6" transform="translate(427 1118) rotate(180)" font-size="48" font-family="Georama" font-weight="800"><tspan x="0" y="0">6</tspan></text>
+    <path id="Union_155" data-name="Union 155" d="M297.392,25l2.274-6.745A8.32,8.32,0,1,1,289,5.486L302-7,315,5.486a8.32,8.32,0,0,1-10.581,12.843L306.672,25Z" transform="translate(-239 685)"/>
+    <path id="Union_157" data-name="Union 157" d="M297.392,25l2.274-6.745A8.32,8.32,0,1,1,289,5.486L302-7,315,5.486a8.32,8.32,0,0,1-10.581,12.843L306.672,25Z" transform="translate(713 1097) rotate(180)"/>
+    <path id="Union_175" data-name="Union 175" d="M322.846,96.5,330.2,74.684a26.911,26.911,0,1,1-34.511-41.3L337.75-7l42.059,40.384a26.911,26.911,0,0,1-34.224,41.538L352.861,96.5Z" transform="translate(-197 671)"/>
+    <path id="Union_183" data-name="Union 183" d="M322.846,96.5,330.2,74.684a26.911,26.911,0,1,1-34.511-41.3L337.75-7l42.059,40.384a26.911,26.911,0,0,1-34.224,41.538L352.861,96.5Z" transform="translate(-197 839.25)"/>
+    <path id="Union_185" data-name="Union 185" d="M322.846,96.5,330.2,74.684a26.911,26.911,0,1,1-34.511-41.3L337.75-7l42.059,40.384a26.911,26.911,0,0,1-34.224,41.538L352.861,96.5Z" transform="translate(-4.501 846.25)"/>
+    <path id="Union_177" data-name="Union 177" d="M322.846,96.5,330.2,74.684a26.911,26.911,0,1,1-34.511-41.3L337.75-7l42.059,40.384a26.911,26.911,0,0,1-34.224,41.538L352.861,96.5Z" transform="translate(-4.5 671)"/>
+    <path id="Union_179" data-name="Union 179" d="M322.846,96.5,330.2,74.684a26.911,26.911,0,1,1-34.511-41.3L337.75-7l42.059,40.384a26.911,26.911,0,0,1-34.224,41.538L352.861,96.5Z" transform="translate(478.5 1111) rotate(180)"/>
+    <path id="Union_263" data-name="Union 263" d="M322.846,96.5,330.2,74.684a26.911,26.911,0,1,1-34.511-41.3L337.75-7l42.059,40.384a26.911,26.911,0,0,1-34.224,41.538L352.861,96.5Z" transform="translate(671 1111) rotate(180)"/>
+  </g>
+</svg>

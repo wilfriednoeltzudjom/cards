@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="404" height="550" viewBox="0 0 404 550">
+  <g id="jack_clover" transform="translate(-35 -1206)">
+    <rect id="Rectangle_31" data-name="Rectangle 31" width="404" height="550" rx="8" transform="translate(35 1206)" fill="#fff"/>
+    <rect id="Rectangle_32" data-name="Rectangle 32" width="296" height="454" rx="16" transform="translate(89 1254)"/>
+    <text id="J" transform="translate(47 1254)" font-size="48" font-family="Georama" font-weight="800"><tspan x="0" y="0">J</tspan></text>
+    <path id="Union_93" data-name="Union 93" d="M297.392,25l2.274-6.745a8.32,8.32,0,1,1-5.68-14.688,8.32,8.32,0,1,1,16.026,0,8.32,8.32,0,1,1-5.591,14.762L306.672,25Z" transform="translate(-243 1275)"/>
+    <path id="Union_87" data-name="Union 87" d="M297.392,25l2.274-6.745a8.32,8.32,0,1,1-5.68-14.688,8.32,8.32,0,1,1,16.026,0,8.32,8.32,0,1,1-5.591,14.762L306.672,25Z" transform="translate(717 1687) rotate(180)"/>
+    <path id="Union_90" data-name="Union 90" d="M316.082,77.5l6.006-17.811a21.97,21.97,0,1,1-15-38.787,21.97,21.97,0,1,1,42.32,0,21.97,21.97,0,1,1-14.763,38.981L340.587,77.5Z" transform="translate(-187.5 1271)" fill="#fff"/>
+    <path id="Union_94" data-name="Union 94" d="M352.75,180.5l13.327-39.522A48.751,48.751,0,1,1,332.8,54.913a48.75,48.75,0,1,1,93.9,0,48.75,48.75,0,1,1-32.759,86.5L407.125,180.5Z" transform="translate(-142.75 1394.25)" fill="#fff"/>
+    <path id="Union_86" data-name="Union 86" d="M316.082,77.5l6.006-17.811a21.97,21.97,0,1,1-15-38.787,21.97,21.97,0,1,1,42.32,0,21.97,21.97,0,1,1-14.763,38.981L340.587,77.5Z" transform="translate(660.5 1690) rotate(180)" fill="#fff"/>
+    <text id="J-2" data-name="J" transform="translate(427 1708) rotate(180)" font-size="48" font-family="Georama" font-weight="800"><tspan x="0" y="0">J</tspan></text>
+    <path id="Union_95" data-name="Union 95" d="M320.8,90.75l6.948-20.6A25.415,25.415,0,1,1,310.4,25.277a25.415,25.415,0,1,1,48.955,0A25.415,25.415,0,1,1,342.275,70.37l6.872,20.379Z" transform="translate(-97.875 1457)"/>
+  </g>
+</svg>

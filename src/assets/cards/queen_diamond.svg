@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="404" height="550" viewBox="0 0 404 550">
+  <g id="queen_diamond" transform="translate(-472 -1206)">
+    <rect id="Rectangle_33" data-name="Rectangle 33" width="404" height="550" rx="8" transform="translate(472 1206)" fill="#fff"/>
+    <rect id="Rectangle_34" data-name="Rectangle 34" width="296" height="454" rx="16" transform="translate(526 1254)" fill="#bb371a"/>
+    <text id="Q" transform="translate(484 1254)" fill="#bb371a" font-size="48" font-family="Georama" font-weight="800"><tspan x="0" y="0">Q</tspan></text>
+    <text id="Q-2" data-name="Q" transform="translate(864 1708) rotate(180)" fill="#bb371a" font-size="48" font-family="Georama" font-weight="800"><tspan x="0" y="0">Q</tspan></text>
+    <rect id="Rectangle_119" data-name="Rectangle 119" width="24" height="24" transform="translate(502.03 1268) rotate(45)" fill="#bb371a"/>
+    <rect id="Rectangle_121" data-name="Rectangle 121" width="24" height="24" transform="translate(845.029 1660.059) rotate(45)" fill="#bb371a"/>
+    <rect id="Rectangle_129" data-name="Rectangle 129" width="59.648" height="59.648" transform="translate(578.022 1264) rotate(45)" fill="#fff"/>
+    <rect id="Rectangle_130" data-name="Rectangle 130" width="59.648" height="59.648" transform="translate(769.978 1613.645) rotate(45)" fill="#fff"/>
+    <rect id="Rectangle_128" data-name="Rectangle 128" width="132.583" height="132.583" transform="translate(674.655 1387.25) rotate(45)" fill="#fff"/>
+    <rect id="Rectangle_127" data-name="Rectangle 127" width="69.12" height="69.12" transform="translate(674.655 1432.125) rotate(45)" fill="#bb371a"/>
+  </g>
+</svg>
