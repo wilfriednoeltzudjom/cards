@@ -8,7 +8,7 @@ import IconStyled from './Icon.styled';
 
 export function Icon({ className, style = {}, variant = 'filled', clickable = false, disabled = false, name, size = 'md', onClick }) {
   function handleClick() {
-    if (clickable && onClick) onClick();
+    if (clickable && !disabled && onClick) onClick();
   }
 
   return (
@@ -45,7 +45,7 @@ function getIconName(name, variant) {
     'arrow-back': 'arrow_back_ios',
     close: 'close',
     heart: { filled: 'favorite', outline: 'favorite_border' },
-    exit: 'exit_to_app',
+    exit: 'logout',
     prize: 'emoji_events',
   }[name];
 

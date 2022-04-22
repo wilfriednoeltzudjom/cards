@@ -16,6 +16,8 @@ const cardAnimation = keyframes`
 `;
 
 export default styled.div`
+  position: sticky;
+  top: 0;
   flex: 1;
   display: flex;
   height: 100%;
@@ -23,7 +25,7 @@ export default styled.div`
   align-items: center;
   border: 2px dashed ${colors.white};
   border-radius: ${dimensions.defaults.radius};
-  background: ${colors.gray};
+  background: ${colors.primaryLight};
   padding: 2rem;
 
   > main {

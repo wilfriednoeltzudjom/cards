@@ -8,6 +8,9 @@ export default styled.div`
   align-items: center;
 
   > header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-bottom: 3.5rem;
   }
 
@@ -16,7 +19,7 @@ export default styled.div`
     flex-direction: column;
 
     > button:not(:last-child) {
-      margin-bottom: 1rem;
+      margin-bottom: 1.25rem;
     }
   }
 `;

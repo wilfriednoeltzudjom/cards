@@ -6,8 +6,9 @@ export default styled.span`
   display: inline-block;
   font-size: ${getIconFontSize};
 
-  ${({ clickable }) =>
+  ${({ clickable, disabled }) =>
     clickable &&
+    !disabled &&
     css`
       transition: all 200ms ease-in-out;
       cursor: pointer;

@@ -37,6 +37,13 @@ export default styled.div`
         filter: drop-shadow(0 0 20px rgba(124, 124, 124, 0.5));
       }
     `}
+
+  ${({ selectable, onSelect }) =>
+    !selectable &&
+    onSelect &&
+    css`
+      cursor: not-allowed;
+    `}
 `;
 
 function getBorderRadius({ size }) {

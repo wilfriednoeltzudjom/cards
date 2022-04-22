@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="500" height="500" viewBox="0 0 500 500">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_425" data-name="Rectangle 425" width="190" height="190" transform="translate(382 187)" fill="#fff" stroke="#fff" stroke-width="1"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <rect id="Rectangle_426" data-name="Rectangle 426" width="190" height="190" transform="translate(612 187)" fill="#fff" stroke="#fff" stroke-width="1"/>
+    </clipPath>
+    <clipPath id="clip-path-3">
+      <rect id="Rectangle_427" data-name="Rectangle 427" width="190" height="190" transform="translate(612 417)" fill="#fff" stroke="#fff" stroke-width="1"/>
+    </clipPath>
+    <clipPath id="clip-path-4">
+      <rect id="Rectangle_428" data-name="Rectangle 428" width="190" height="190" transform="translate(382 417)" fill="#fff" stroke="#fff" stroke-width="1"/>
+    </clipPath>
+  </defs>
+  <g id="Group_17" data-name="Group 17" transform="translate(-342 -147)">
+    <rect id="Rectangle_424" data-name="Rectangle 424" width="500" height="500" rx="24" transform="translate(342 147)" fill="#2d2e31"/>
+    <g id="Mask_Group_24" data-name="Mask Group 24" clip-path="url(#clip-path)">
+      <path id="clover" d="M176.32,187.34l13.5-40.049A49.4,49.4,0,1,1,156.1,60.078a49.4,49.4,0,1,1,95.156,0,49.4,49.4,0,1,1-33.2,87.649L231.42,187.34Z" transform="translate(273.32 189.637)" fill="#fff"/>
+    </g>
+    <g id="Mask_Group_25" data-name="Mask Group 25" clip-path="url(#clip-path-2)">
+      <path id="heart" d="M203.68,151.615c-7.453,20.981-25.063,35.725-45.6,35.725-27.284,0-49.4-26.02-49.4-58.118,0-17.953,6.919-34,17.791-44.664L203.68-2.66l77.209,87.218c10.873,10.661,17.791,26.711,17.791,44.664,0,32.1-22.116,58.118-49.4,58.118C228.743,187.34,211.133,172.6,203.68,151.615Z" transform="translate(910.68 374.34) rotate(180)" fill="#fff"/>
+    </g>
+    <g id="Mask_Group_27" data-name="Mask Group 27" clip-path="url(#clip-path-3)">
+      <path id="spade" d="M176.2,187.21l13.5-40.021a49.367,49.367,0,1,1-63.31-75.764L203.539-2.658l77.156,74.084a49.366,49.366,0,0,1-62.783,76.2L231.26,187.21Z" transform="translate(503.33 419.724)" fill="#fff"/>
+    </g>
+    <g id="Mask_Group_26" data-name="Mask Group 26" clip-path="url(#clip-path-4)">
+      <rect id="diamond" width="134.349" height="134.35" transform="translate(477 417) rotate(45)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

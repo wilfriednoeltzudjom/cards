@@ -7,14 +7,18 @@ import { PLAYER_TYPES } from '../../../core/enums';
 import { Icon } from '../icon';
 import PlayerEditionStyled from './PlayerEdition.styled';
 
-export function PlayerEdition({ player, position, onChange }) {
+export function PlayerEdition({ player, position, playersCount = 0, onChange, onMoveLeft, onMoveRight }) {
   function handleChange({ target }) {
     if (onChange) onChange(target);
   }
 
-  function handleMoveLeft() {}
+  function handleMoveLeft() {
+    if (onMoveLeft) onMoveLeft();
+  }
 
-  function handleMoveRight() {}
+  function handleMoveRight() {
+    if (onMoveRight) onMoveRight();
+  }
 
   return (
     <PlayerEditionStyled>
@@ -26,8 +30,8 @@ export function PlayerEdition({ player, position, onChange }) {
         <input type="text" defaultValue={player.name} disabled={player.type === PLAYER_TYPES.COMPUTER} onChange={handleChange} />
       </main>
       <footer>
-        <Icon name="west" clickable disabled onClick={handleMoveLeft} />
-        <Icon name="east" clickable disabled onClick={handleMoveRight} />
+        <Icon name="west" clickable disabled={position === 1} onClick={handleMoveLeft} />
+        <Icon name="east" clickable disabled={position === playersCount} onClick={handleMoveRight} />
       </footer>
     </PlayerEditionStyled>
   );
@@ -35,7 +39,10 @@ export function PlayerEdition({ player, position, onChange }) {
 PlayerEdition.propTypes = {
   player: playerPropType,
   position: PropTypes.number,
+  playersCount: PropTypes.number,
   onChange: PropTypes.func,
+  onMoveLeft: PropTypes.func,
+  onMoveRight: PropTypes.func,
 };
 
 function formatPlayerType({ type }) {

@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 
 import { PLAYER_TYPES } from '../../../core/enums';
 import { playerPropType } from '../../../utilities/prop-type-schemas';
+import { isNullish } from '../../../utilities/data-validation.helper';
 
 import { Card } from '../card';
 import PlayerStyled from './Player.styled';
 import { Icon } from '../icon';
 import { Text } from '../text';
-import { isValidValue } from '../../../utilities/data-validation.helper';
 
-export function Player({ player, playing = false, onSelect }) {
+export function Player({ player, playing = false, playersCount = 0, onSelect }) {
   const props = { player, playing };
 
   function handleSelect(card) {
@@ -37,7 +37,7 @@ export function Player({ player, playing = false, onSelect }) {
           />
         ))}
       </main>
-      {isValidValue(player.ranking) && player.ranking <= 3 && (
+      {canShowWinningIcon(player, playersCount) && (
         <footer>
           <Icon name="prize" size="xxl" />
           <Text size="lg" weight="extra">
@@ -51,6 +51,7 @@ export function Player({ player, playing = false, onSelect }) {
 Player.propTypes = {
   player: playerPropType,
   playing: PropTypes.bool,
+  playersCount: PropTypes.number,
   onSelect: PropTypes.func,
 };
 
@@ -60,4 +61,10 @@ function extractPlayerCards(player) {
         return { ...card, covered: false };
       })
     : player.cards;
+}
+
+function canShowWinningIcon({ ranking }, playersCount) {
+  if (isNullish(ranking)) return false;
+
+  return ranking < playersCount;
 }

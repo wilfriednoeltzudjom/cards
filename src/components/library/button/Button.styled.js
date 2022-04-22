@@ -1,8 +1,15 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 import colors from '../../../config/colors';
 import dimensions from '../../../config/dimensions';
 import { fontSizes } from '../../../config/sizes';
+
+export const ripple = keyframes`
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+`;
 
 export default styled.button`
   position: relative;
@@ -14,6 +21,7 @@ export default styled.button`
   border-radius: ${dimensions.radius.default};
   background: ${colors.primaryLight};
   padding: 1.25rem 3rem;
+  overflow: hidden;
   transition: all 100ms ease-in-out;
   cursor: pointer;
 
@@ -34,10 +42,15 @@ export default styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    > .icon {
+      margin-right: 0.5rem;
+    }
   }
 
   :disabled {
     color: #545454;
+    cursor: not-allowed;
 
     ::before {
       content: '';
@@ -53,10 +66,30 @@ export default styled.button`
 
   :hover {
     :not(:disabled) {
-      box-shadow: 0 0 1rem 0 rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 8px 0 rgba(255, 255, 255, 0.1);
 
       ::before {
         height: 98%;
+      }
+    }
+  }
+
+  > span {
+    &.ripple {
+      position: absolute;
+      border-radius: 50%;
+      transform: scale(0);
+      animation: ${ripple} 500ms linear;
+      background-color: rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  &.action {
+    padding: 1rem;
+
+    > main {
+      > .icon {
+        margin-right: 0;
       }
     }
   }

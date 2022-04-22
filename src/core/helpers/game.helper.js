@@ -177,14 +177,15 @@ function getPenaltyCardsPositionsWeight(branch) {
 }
 
 function generatePlayers() {
-  // const playersCount = [1, 2, 3][Math.round(Math.random() * 3)];
-  const playersCount = 1;
-  const players = Array(playersCount)
-    .fill()
-    .map(() => Player.newInstance({ type: PLAYER_TYPES.COMPUTER, name: factoryHelper.generatePlayerName() }));
+  const playersCount = [1, 2, 3][Math.round(Math.random() * 3)];
+  const players = Array(playersCount).fill().map(generatePlayer);
   players.push(Player.newInstance({ type: PLAYER_TYPES.HUMAN }));
 
   return arrayHelper.shuffle(players);
+}
+
+function generatePlayer() {
+  return Player.newInstance({ type: PLAYER_TYPES.COMPUTER, name: factoryHelper.generatePlayerName() });
 }
 
 export default {
@@ -198,4 +199,5 @@ export default {
   generatePlayers,
   getNextDirectActivePlayerIndex,
   chooseBestShape,
+  generatePlayer,
 };

@@ -2,23 +2,45 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
 import { publicRoutes, privateRoutes } from '../routes';
+import backgroundImage from '../assets/misc/background.svg';
 
 import AppStyled from './App.styled';
 import AppUnsupported from './AppUnsupported';
 import useWindowDimensions from './hooks/useWindowDimensions';
+import { Anchor, Text } from './library';
+import { ImageIcon } from './library/icon/ImageIcon';
+import { GITHUB_PROFILE, TWITTER_PROFILE } from '../config/constants';
 
 function App() {
   const { width } = useWindowDimensions();
 
   return canShowAppContent(width) ? (
     <>
-      <AppStyled>
-        <Router>
-          <Switch>
-            {renderPublicRoutes()}
-            {renderPrivateRoutes()}
-          </Switch>
-        </Router>
+      <AppStyled style={{ backgroundImage: `url(${backgroundImage})` }}>
+        <main>
+          <Router>
+            <Switch>
+              {renderPublicRoutes()}
+              {renderPrivateRoutes()}
+            </Switch>
+          </Router>
+        </main>
+        <footer>
+          <div>
+            <section>
+              <Text size="sm">&copy; </Text>
+              <Text size="sm">{new Date().getFullYear()} (v1.0.0), Made with React by Wilfried Noel TZUDJOM</Text>
+            </section>
+            <section>
+              <Anchor url={GITHUB_PROFILE}>
+                <ImageIcon name="github" label="Github" />
+              </Anchor>
+              <Anchor url={TWITTER_PROFILE}>
+                <ImageIcon name="twitter" label="Twitter" />
+              </Anchor>
+            </section>
+          </div>
+        </footer>
       </AppStyled>
     </>
   ) : (

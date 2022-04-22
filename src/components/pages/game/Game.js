@@ -8,7 +8,7 @@ import { ROUTE_STARTUP } from '../../../routes';
 import { isNonEmptyObject } from '../../../utilities/data-validation.helper';
 import { CARD_VALUES, GAME_STATUSES, PLAYER_TYPES } from '../../../core/enums';
 
-import { Button, Modal, Platform, Player } from '../../library';
+import { Button, Icon, Modal, Platform, Player } from '../../library';
 import GameStyled from './Game.styled';
 import useDisclosure from '../../hooks/useDisclosure';
 import { SelectShapeForm } from './forms';
@@ -90,6 +90,12 @@ export default function Game() {
     setSelectedCard({});
   }
 
+  function handlePickAdditionalCard() {
+    if (game.activePlayer.type === PLAYER_TYPES.HUMAN) {
+      dispatch(pickAdditionalCards());
+    }
+  }
+
   function handleExitGame() {
     dispatch(exitGame());
   }
@@ -98,15 +104,25 @@ export default function Game() {
     <>
       <GameStyled>
         <header>
-          <Button onClick={handleExitGame}>Exit</Button>
+          <Button icon={<Icon name="exit" />} onClick={handleExitGame}>
+            Exit
+          </Button>
         </header>
         <main>
-          <section>
-            {game.players.map((player) => (
-              <Player key={player.id} player={player} playing={gameViewmodel.isPlayerPlaying(player, game)} onSelect={handleSelectCard} />
-            ))}
-          </section>
-          <Platform game={game} />
+          <div>
+            <section>
+              {game.players.map((player) => (
+                <Player
+                  key={player.id}
+                  player={player}
+                  playersCount={game.players.length}
+                  playing={gameViewmodel.isPlayerPlaying(player, game)}
+                  onSelect={handleSelectCard}
+                />
+              ))}
+            </section>
+            <Platform game={game} cardPickingEnabled={gameViewmodel.isCardPickingEnabled(game)} onPickCard={handlePickAdditionalCard} />
+          </div>
         </main>
       </GameStyled>
 

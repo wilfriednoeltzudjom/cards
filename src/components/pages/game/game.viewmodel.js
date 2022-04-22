@@ -1,4 +1,5 @@
 import { Player, Play, Card } from '../../../core/entities';
+import { GAME_STATUSES, PLAYER_TYPES } from '../../../core/enums';
 import cardHelper from '../../../core/helpers/card.helper';
 import gameHelper from '../../../core/helpers/game.helper';
 import { isNonEmptyObject } from '../../../utilities/data-validation.helper';
@@ -41,6 +42,14 @@ function isPenaltyCard(card) {
   return cardHelper.isPenaltyCard(Card.fromJSON(card));
 }
 
+function isCardPickingEnabled(game) {
+  if (game.status === GAME_STATUSES.ENDED) return false;
+
+  const { activePlayer = {} } = game;
+
+  return activePlayer?.type === PLAYER_TYPES.HUMAN;
+}
+
 export default {
   isPlayerPlaying,
   includesPlayableCards,
@@ -50,4 +59,5 @@ export default {
   isPlayableCard,
   chooseBestShape,
   isPenaltyCard,
+  isCardPickingEnabled,
 };

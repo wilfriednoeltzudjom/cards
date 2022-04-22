@@ -12,6 +12,7 @@
     "@types/react-router-dom": "^5.3.3",
     "axios": "^0.26.1",
     "faker": "^6.6.6",
+    "html-react-parser": "^1.4.11",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "react": "^17.0.2",

@@ -8,10 +8,14 @@ import CardStyled from './Card.styled';
 import CardIcon from './CardIcon';
 
 export function Card({ className, card, size = 'md', shadowed = true, index, selectable = false, onSelect }) {
-  const props = { className, card, size, index, shadowed, selectable };
+  const props = { className, card, size, index, shadowed, selectable, onSelect };
+
+  function handleClick() {
+    if (selectable && onSelect) onSelect();
+  }
 
   return (
-    <CardStyled {...props} onClick={onSelect}>
+    <CardStyled {...props} onClick={handleClick}>
       <CardIcon card={card} width={cardSizes.width[size]} height={cardSizes.height[size]} />
     </CardStyled>
   );

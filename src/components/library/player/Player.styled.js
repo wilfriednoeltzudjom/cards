@@ -33,10 +33,11 @@ export default styled.div`
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  outline: 0.25rem solid ${colors.white};
+  outline: 0.125rem solid ${colors.white};
   border-radius: ${dimensions.defaults.radius};
-  background: ${colors.gray};
+  background: ${colors.primaryLight};
   position: relative;
+  overflow: hidden;
 
   > header {
     display: flex;
@@ -82,6 +83,7 @@ export default styled.div`
     transform: translateX(-50%) translateY(-50%) scale(0);
     z-index: 3;
     animation: ${prizeAnimation} 1s forwards;
+    cursor: not-allowed;
 
     > .icon {
       color: ${getIconColor};

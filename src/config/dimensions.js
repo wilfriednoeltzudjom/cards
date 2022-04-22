@@ -19,4 +19,7 @@ export default {
   platform: {
     minHeight: '500px',
   },
+  footer: {
+    minHeight: '5rem',
+  },
 };

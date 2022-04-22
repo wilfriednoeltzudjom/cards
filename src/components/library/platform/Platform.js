@@ -7,7 +7,7 @@ import PlatformStyled from './Platform.styled';
 import { Card } from '../card';
 import { Shape } from '../shape';
 
-export function Platform({ game, onPickCard }) {
+export function Platform({ game, cardPickingEnabled = false, onPickCard }) {
   const { activePlays, cards } = game;
 
   return (
@@ -24,7 +24,7 @@ export function Platform({ game, onPickCard }) {
         <span>{cards.length}</span>
         {cards.length > 0 && (
           <section>
-            <Card card={cards[cards.length - 1]} size="md" selectable onSelect={onPickCard} />
+            <Card card={cards[cards.length - 1]} size="md" selectable={cardPickingEnabled} onSelect={onPickCard} />
           </section>
         )}
         {game.chosenShape && <Shape name={game.chosenShape} size="sm" animated />}
@@ -34,5 +34,6 @@ export function Platform({ game, onPickCard }) {
 }
 Platform.propTypes = {
   game: gamePropType,
+  cardPickingEnabled: PropTypes.bool,
   onPickCard: PropTypes.func,
 };

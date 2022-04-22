@@ -33,7 +33,7 @@ export default styled.div`
   margin: 0 auto;
   transform: scale(0);
   transform-origin: 50% 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.5);
   border-radius: ${dimensions.defaults.radius};
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.1);
   padding: 1rem;
@@ -50,6 +50,7 @@ export default styled.div`
     display: flex;
     justify-content: space-between;
     padding: 1rem;
+    text-transform: uppercase;
   }
 
   > main {
