@@ -7,7 +7,7 @@ import { cardPropType, sizePropType } from '../../../utilities/prop-type-schemas
 import CardStyled from './Card.styled';
 import CardIcon from './CardIcon';
 
-export function Card({ className, card, size = 'md', shadowed = true, index, selectable = false, onSelect }) {
+export function Card({ className, card, size = 'md', shadowed = true, covered = false, index, selectable = false, onSelect }) {
   const props = { className, card, size, index, shadowed, selectable, onSelect };
 
   function handleClick() {
@@ -16,7 +16,7 @@ export function Card({ className, card, size = 'md', shadowed = true, index, sel
 
   return (
     <CardStyled {...props} onClick={handleClick}>
-      <CardIcon card={card} width={cardSizes.width[size]} height={cardSizes.height[size]} />
+      <CardIcon card={card} covered={covered} width={cardSizes.width[size]} height={cardSizes.height[size]} />
     </CardStyled>
   );
 }
@@ -25,6 +25,7 @@ Card.propTypes = {
   card: cardPropType.isRequired,
   size: sizePropType,
   shadowed: PropTypes.bool,
+  covered: PropTypes.bool,
   index: PropTypes.number,
   selectable: PropTypes.bool,
   onSelect: PropTypes.func,

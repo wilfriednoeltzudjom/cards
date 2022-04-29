@@ -6,10 +6,13 @@ import './index.css';
 import { initStore } from './store';
 
 import App from './components/App';
+import WebSocketProvider from './components/providers/WebSocket';
 
 ReactDOM.render(
   <Provider store={initStore()}>
-    <App />
+    <WebSocketProvider>
+      <App />
+    </WebSocketProvider>
   </Provider>,
   document.getElementById('root')
 );

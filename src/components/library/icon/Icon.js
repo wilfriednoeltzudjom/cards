@@ -47,6 +47,7 @@ function getIconName(name, variant) {
     heart: { filled: 'favorite', outline: 'favorite_border' },
     exit: 'logout',
     prize: 'emoji_events',
+    offline: 'cloud_off',
   }[name];
 
   return (isNonEmptyObject(iconName) ? iconName[variant] : iconName) || name;

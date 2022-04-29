@@ -17,6 +17,7 @@ Default.args = {
     cards: gameHelper.generateCardSet().slice(0, 10),
     active: true,
     ranking: 1,
+    leftAt: Date.now(),
   },
   playing: false,
 };

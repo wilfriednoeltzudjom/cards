@@ -11,18 +11,18 @@ import { Text } from '../text';
 import { Icon } from '../icon';
 import useModalDisclosure from './useModalDisclosure';
 
-export function Modal({ title, shown, children, onHide }) {
-  const props = { shown };
+export function Modal({ title, shown, backgroundMode = 1, closable = true, showOverlay = false, children, onHide }) {
+  const props = { shown, backgroundMode, closable };
   const { hasBeenShownOnce, handleHide } = useModalDisclosure({ shown, onHide });
 
   return (
     <Portal>
-      <ModalOverlayStyled className={getModalClassName(shown, hasBeenShownOnce)}>
+      <ModalOverlayStyled className={getModalClassName(shown, hasBeenShownOnce)} showOverlay={showOverlay}>
         <ModalContainerStyled>
           <ModalStyled className={getModalClassName(shown, hasBeenShownOnce)} {...props}>
             <header>
               <Text weight="extra">{title}</Text>
-              <Icon name="close" clickable onClick={handleHide} />
+              {closable && <Icon name="close" clickable onClick={handleHide} />}
             </header>
             <main>{children}</main>
           </ModalStyled>
@@ -34,6 +34,9 @@ export function Modal({ title, shown, children, onHide }) {
 Modal.propTypes = {
   title: PropTypes.string,
   shown: PropTypes.bool,
+  backgroundMode: PropTypes.number,
+  closable: PropTypes.bool,
+  showOverlay: PropTypes.bool,
   children: childrenPropType,
   onHide: PropTypes.func,
 };

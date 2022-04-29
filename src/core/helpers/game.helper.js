@@ -1,5 +1,6 @@
 import { arrayHelper, dataHelper } from '../../tools';
 import factoryHelper from '../../tools/factory.helper';
+import { isNullish } from '../../utilities/data-validation.helper';
 import { Card, Player } from '../entities';
 import { CARD_COLORS, CARD_SHAPES, CARD_VALUES, PLAYER_TYPES } from '../enums';
 import cardHelper from './card.helper';
@@ -9,6 +10,7 @@ function isPlayValid(playedCard, lastPlayedCard, chosenShape) {
   if (lastPlayedCard.value === CARD_VALUES.JOKER) {
     return playedCard.color === lastPlayedCard.color || playedCard.value === CARD_VALUES.SEVEN;
   }
+  if (lastPlayedCard.value === CARD_VALUES.JACK && isNullish(chosenShape)) return true;
 
   return chosenShape ? chosenShape === playedCard.shape : playedCard.shape === lastPlayedCard.shape || playedCard.value === lastPlayedCard.value;
 }
@@ -126,7 +128,12 @@ function filterActiveCards(cards, cardTree) {
 }
 
 function chooseBestShape(cards) {
-  const shapes = cards.map((card) => card.shape).filter(dataHelper.isValidValue);
+  if (cards.length === 1) return cards[0].shape;
+
+  const shapes = cards
+    .filter((card) => card.value !== CARD_VALUES.JACK)
+    .map((card) => card.shape)
+    .filter(dataHelper.isValidValue);
 
   return shapes
     .map((shape) => {

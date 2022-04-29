@@ -8,3 +8,4 @@ export * from './modal';
 export * from './shape';
 export * from './anchor';
 export * from './rule';
+export * from './loading';

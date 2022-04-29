@@ -2,7 +2,7 @@ import { PLAYER_TYPES } from '../../../core/enums';
 import { isNonEmptyString } from '../../../utilities/data-validation.helper';
 
 function canStartGame(players) {
-  return players.every((player) => isNonEmptyString(player.name) && player.name.length > 2);
+  return players.length >= 2 && players.every((player) => isNonEmptyString(player.name) && player.name.length > 2);
 }
 
 function canShowDeletePlayerButton(players, currentPlayer, currentPlayerIndex) {

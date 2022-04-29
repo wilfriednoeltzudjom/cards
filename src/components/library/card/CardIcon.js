@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { CARD_VALUES } from '../../../core/enums';
 import { cardPropType } from '../../../utilities/prop-type-schemas';
@@ -116,8 +117,8 @@ export const cardIconComponents = {
   joker_black: JokerBlack,
 };
 
-export default function CardIcon({ card, ...restOfProps }) {
-  if (card.covered) return <CardCover {...restOfProps} />;
+export default function CardIcon({ card, covered, ...restOfProps }) {
+  if (card.covered || covered) return <CardCover {...restOfProps} />;
 
   const IconComponent = cardIconComponents[toIconComponentName(card)];
 
@@ -125,6 +126,7 @@ export default function CardIcon({ card, ...restOfProps }) {
 }
 CardIcon.propTypes = {
   card: cardPropType,
+  covered: PropTypes.bool,
 };
 
 function toIconComponentName(card) {

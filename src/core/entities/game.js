@@ -1,4 +1,4 @@
-import { CARD_VALUES, GAME_STATUSES } from '../enums';
+import { CARD_VALUES, GAME_MODES, GAME_STATUSES } from '../enums';
 import buildPlay from './play';
 import buildCard from './card';
 import buildPlayer from './player';
@@ -10,10 +10,15 @@ export default function buildGame(dependencies) {
   const Play = buildPlay(dependencies);
   const Card = buildCard(dependencies);
   const Player = buildPlayer(dependencies);
-  const { dateHelper, arrayHelper, dataHelper } = dependencies;
+  const { idHelper, dateHelper, arrayHelper, dataHelper } = dependencies;
 
   return class Game {
+    #id;
+    #mode;
+    #createdAt;
+    #updatedAt;
     #startedAt;
+    #cancelledAt;
     #endedAt;
     #status;
     #cards;
@@ -29,7 +34,12 @@ export default function buildGame(dependencies) {
     #effectEnabled;
 
     constructor(
+      id,
+      mode,
+      createdAt,
+      updatedAt,
       startedAt,
+      cancelledAt,
       endedAt,
       status,
       cards,
@@ -44,7 +54,12 @@ export default function buildGame(dependencies) {
       penaltyCards,
       effectEnabled
     ) {
+      this.#id = id;
+      this.#mode = mode;
+      this.#createdAt = createdAt;
+      this.#updatedAt = updatedAt;
       this.#startedAt = startedAt;
+      this.#cancelledAt = cancelledAt;
       this.#endedAt = endedAt;
       this.#status = status;
       this.#cards = cards;
@@ -60,12 +75,32 @@ export default function buildGame(dependencies) {
       this.#effectEnabled = effectEnabled;
     }
 
+    get id() {
+      return this.#id;
+    }
+
+    get mode() {
+      return this.#mode;
+    }
+
+    get createdAt() {
+      return this.#createdAt;
+    }
+
+    get updatedAt() {
+      return this.#updatedAt;
+    }
+
     set startedAt(startedAt) {
       this.#startedAt = startedAt;
     }
 
     get startedAt() {
       return this.#startedAt;
+    }
+
+    get cancelledAt() {
+      return this.#cancelledAt;
     }
 
     set endedAt(endedAt) {
@@ -152,8 +187,12 @@ export default function buildGame(dependencies) {
       if (this.#penaltyCards) additionalJSON.penaltyCards = this.#penaltyCards.map((card) => card.toJSON());
 
       return dataHelper.removeUndefinedProperties({
+        id: this.#id,
+        mode: this.#mode,
         startedAt: this.#startedAt,
         endedAt: this.#endedAt,
+        createdAt: this.#createdAt,
+        updatedAt: this.#updatedAt,
         status: this.#status,
         cards: this.#cards.map((card) => card.toJSON()),
         players: this.#players.map((player) => player.toJSON()),
@@ -166,23 +205,33 @@ export default function buildGame(dependencies) {
     }
 
     static fromJSON({
+      id,
+      mode,
+      createdAt,
+      updatedAt,
+      cancelledAt,
       startedAt,
       endedAt,
       status,
-      initialCardsPerPlayerCount,
-      cards,
-      activePlays,
-      playsHistory,
-      players,
+      initialCardsPerPlayerCount = 4,
+      cards = [],
+      activePlays = [],
+      playsHistory = [],
+      players = [],
       activePlayer,
       nextPlayerChosenAt,
       chosenShape,
-      penaltyEnabled,
-      penaltyCards,
-      effectEnabled,
+      penaltyEnabled = false,
+      penaltyCards = [],
+      effectEnabled = false,
     } = {}) {
       return new Game(
+        id,
+        mode,
+        createdAt,
+        updatedAt,
         startedAt,
+        cancelledAt,
         endedAt,
         status,
         isNonEmptyArray(cards) ? cards.map((card) => (isNonEmptyObject(card) ? Card.fromJSON(card) : card)) : [],
@@ -200,7 +249,12 @@ export default function buildGame(dependencies) {
     }
 
     static newInstance({
+      id = idHelper.generateId(),
+      mode = GAME_MODES.OFFLINE,
+      createdAt = dateHelper.currentDate(),
+      updatedAt = dateHelper.currentDate(),
       startedAt,
+      cancelledAt,
       endedAt,
       status = GAME_STATUSES.PENDING,
       initialCardsPerPlayerCount = 4,
@@ -216,7 +270,12 @@ export default function buildGame(dependencies) {
       effectEnabled = false,
     } = {}) {
       return new Game(
+        id,
+        mode,
+        createdAt,
+        updatedAt,
         startedAt,
+        cancelledAt,
         endedAt,
         status,
         cards,
@@ -235,6 +294,7 @@ export default function buildGame(dependencies) {
 
     startGame() {
       this.#startedAt = dateHelper.currentDate();
+      this.#status = GAME_STATUSES.STARTED;
 
       const shuffledCards = arrayHelper.shuffle(this.#cards);
       this.distributeCards(shuffledCards);
@@ -304,7 +364,7 @@ export default function buildGame(dependencies) {
       this.#activePlays.push(play);
       this.#playsHistory.push(play);
       if (play.card.value === CARD_VALUES.JACK) {
-        this.#chosenShape = shape || play.card.shape;
+        this.#chosenShape = shape;
       } else this.#chosenShape = '';
     }
 

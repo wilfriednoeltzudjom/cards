@@ -6,6 +6,12 @@ export const weightPropType = PropTypes.oneOf(['normal', 'bold', 'extra', 'black
 
 export const childrenPropType = PropTypes.oneOfType([PropTypes.node, PropTypes.arrayOf(PropTypes.node)]);
 
+export const formPropTypes = {
+  formState: PropTypes.shape({}),
+  onChange: PropTypes.func,
+  onSubmit: PropTypes.func,
+};
+
 export const cardPropType = PropTypes.shape({
   value: PropTypes.string,
   shape: PropTypes.string,

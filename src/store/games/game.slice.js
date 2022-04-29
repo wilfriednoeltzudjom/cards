@@ -1,12 +1,17 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { Card, Game, Player } from '../../core/entities';
+import { GAME_MODES } from '../../core/enums';
 import gameHelper from '../../core/helpers/game.helper';
+import { isNonEmptyObject } from '../../utilities/data-validation.helper';
 import { waitFor } from '../../utilities/duration.helper';
 import sessionHelper from '../../utilities/session.helper';
+import { hideLoading, showLoading } from '../ui/loading.slice';
+import gameService from './game.service';
 
 const initialState = {
   game: sessionHelper.retrieveGame() || {},
+  player: sessionHelper.retrievePlayer() || {},
 };
 
 export const startGame = createAsyncThunk('games/startGame', ({ players }) => {
@@ -15,6 +20,17 @@ export const startGame = createAsyncThunk('games/startGame', ({ players }) => {
 
   const game = gameInstance.toJSON();
   sessionHelper.saveGame(game);
+
+  return { game };
+});
+
+export const startGameOnline = createAsyncThunk('games/startGameOnline', ({ webSocket }, { getState }) => {
+  const gameInstance = Game.fromJSON({ ...getState().gameState.game, cards: gameHelper.generateCardSet() });
+  gameInstance.startGame();
+
+  const game = gameInstance.toJSON();
+  sessionHelper.saveGame(game);
+  dispatchGameUsingWebSoket(webSocket, game);
 
   return { game };
 });
@@ -31,25 +47,35 @@ export const playCard = createAsyncThunk('games/playCard', async ({ card, player
   return { game };
 });
 
-export const pickAdditionalCards = createAsyncThunk('games/pickAdditionalCard', async ({ cardsCount = 1 } = {}, { getState }) => {
+export const pickAdditionalCards = createAsyncThunk('games/pickAdditionalCard', async ({ cardsCount = 1, webSocket } = {}, { getState }) => {
   await waitFor(500);
 
   const gameInstance = Game.fromJSON(getState().gameState.game);
   gameInstance.giveActivePlayerAdditionalCards({ cardsCount });
 
   const game = gameInstance.toJSON();
+  if (game.mode === GAME_MODES.ONLINE && webSocket) {
+    webSocket.updateGame({ game });
+    return {};
+  }
+
   sessionHelper.saveGame(game);
 
   return { game };
 });
 
-export const pickPenaltyCards = createAsyncThunk('games/pickPenaltyCards', async (_, { getState }) => {
+export const pickPenaltyCards = createAsyncThunk('games/pickPenaltyCards', async ({ webSocket }, { getState }) => {
   await waitFor(500);
 
   const gameInstance = Game.fromJSON(getState().gameState.game);
   gameInstance.pickPenaltyCards();
 
   const game = gameInstance.toJSON();
+  if (game.mode === GAME_MODES.ONLINE && webSocket) {
+    webSocket.updateGame({ game });
+    return {};
+  }
+
   sessionHelper.saveGame(game);
 
   return { game };
@@ -62,6 +88,63 @@ export const exitGame = createAsyncThunk('games/exitGame', async () => {
   return {};
 });
 
+async function dispatchGameUsingWebSoket(webSocket, game) {
+  if (game.mode === GAME_MODES.ONLINE && webSocket) {
+    webSocket.updateGame({ game });
+  }
+}
+
+export const createGame = createAsyncThunk('games/createGame', async ({ formState = {}, onSuccess }, { dispatch }) => {
+  dispatch(showLoading());
+
+  try {
+    const { data: game } = await gameService.createGame(formState);
+    if (onSuccess) onSuccess();
+
+    return { game };
+  } finally {
+    dispatch(hideLoading());
+  }
+});
+
+export const getGame = createAsyncThunk('games/getGame', async ({ gameId, filters = {}, onSuccess }, { dispatch }) => {
+  dispatch(showLoading());
+
+  try {
+    const { data: game } = await gameService.getGame(gameId, filters);
+    if (onSuccess) onSuccess();
+
+    return { game };
+  } finally {
+    dispatch(hideLoading());
+  }
+});
+
+export const gameJoined = createAsyncThunk('games/gameJoined', async ({ game, player }, { dispatch }) => {
+  dispatch(hideLoading());
+
+  sessionHelper.saveGame(game);
+  sessionHelper.savePlayer(player);
+
+  return { game, player };
+});
+
+export const gameLeft = createAsyncThunk('games/gameJoined', async () => {
+  sessionHelper.clearPlayer();
+
+  return {};
+});
+
+export const gameUpdated = createAsyncThunk('games/gameUpdated', async ({ game }) => {
+  if (sessionHelper.isStorageEnabled()) {
+    sessionHelper.saveGame(game);
+
+    return { game };
+  }
+
+  return {};
+});
+
 export const gameSlice = createSlice({
   name: 'game',
   initialState,
@@ -70,17 +153,43 @@ export const gameSlice = createSlice({
     builder.addCase(startGame.fulfilled, (state, action) => {
       state.game = action.payload.game;
     });
+    builder.addCase(startGameOnline.fulfilled, (state, action) => {
+      state.game = action.payload.game;
+    });
     builder.addCase(playCard.fulfilled, (state, action) => {
       state.game = action.payload.game;
     });
     builder.addCase(pickAdditionalCards.fulfilled, (state, action) => {
-      state.game = action.payload.game;
+      if (isNonEmptyObject(action.payload.game)) {
+        state.game = action.payload.game;
+      }
     });
     builder.addCase(pickPenaltyCards.fulfilled, (state, action) => {
-      state.game = action.payload.game;
+      if (isNonEmptyObject(action.payload.game)) {
+        state.game = action.payload.game;
+      }
     });
     builder.addCase(exitGame.fulfilled, (state) => {
       state.game = {};
+      state.player = {};
+    });
+    builder.addCase(createGame.fulfilled, (state, action) => {
+      state.game = action.payload.game;
+    });
+    builder.addCase(getGame.fulfilled, (state, action) => {
+      state.game = action.payload.game;
+    });
+    builder.addCase(gameJoined.fulfilled, (state, action) => {
+      state.game = action.payload.game;
+      state.player = action.payload.player;
+    });
+    builder.addCase(gameLeft, (state) => {
+      state.player = {};
+    });
+    builder.addCase(gameUpdated.fulfilled, (state, action) => {
+      if (isNonEmptyObject(action.payload.game)) {
+        state.game = action.payload.game;
+      }
     });
   },
 });

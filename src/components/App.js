@@ -1,17 +1,19 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-import { publicRoutes, privateRoutes } from '../routes';
 import backgroundImage from '../assets/misc/background.svg';
+import { GITHUB_PROFILE, TWITTER_PROFILE } from '../config/constants';
+import { publicRoutes, privateRoutes } from '../routes';
 
 import AppStyled from './App.styled';
 import AppUnsupported from './AppUnsupported';
 import useWindowDimensions from './hooks/useWindowDimensions';
-import { Anchor, Text } from './library';
+import { Anchor, Loading, Text } from './library';
 import { ImageIcon } from './library/icon/ImageIcon';
-import { GITHUB_PROFILE, TWITTER_PROFILE } from '../config/constants';
 
 function App() {
+  const loadingState = useSelector((state) => state.loadingState);
   const { width } = useWindowDimensions();
 
   return canShowAppContent(width) ? (
@@ -42,6 +44,8 @@ function App() {
           </div>
         </footer>
       </AppStyled>
+
+      <Loading shown={loadingState.shown} />
     </>
   ) : (
     <AppUnsupported />

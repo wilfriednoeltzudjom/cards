@@ -33,7 +33,7 @@ export default styled.div`
   margin: 0 auto;
   transform: scale(0);
   transform-origin: 50% 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: ${getBackground};
   border-radius: ${dimensions.defaults.radius};
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.1);
   padding: 1rem;
@@ -57,4 +57,27 @@ export default styled.div`
     padding: 1rem;
     display: flex;
   }
+
+  > main {
+    > section {
+      flex: 1;
+
+      > main {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 2rem;
+      }
+
+      > footer {
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
 `;
+
+function getBackground({ backgroundMode }) {
+  const backgroundAlpha = { 1: 0.5, 2: 0.6, 3: 0.7, 4: 0.8 }[backgroundMode];
+
+  return `rgba(0, 0, 0, ${backgroundAlpha})`;
+}

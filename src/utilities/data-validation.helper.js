@@ -1,3 +1,7 @@
+import SHA512 from 'crypto-js/sha512';
+import Base64 from 'crypto-js/enc-base64';
+import { validate as validateUUID } from 'uuid';
+
 function isNullish(value) {
   return [null, undefined].includes(value);
 }
@@ -15,11 +19,37 @@ function isNonEmptyString(value) {
 }
 
 function isEmptyObject(object) {
-  return isNullish(object) || (isNonEmptyObject(object) && Object.keys(object).length === 0);
+  return isNullish(object) || (typeof object === 'object' && Object.keys(object).length === 0);
 }
 
 function isNonEmptyArray(array) {
   return Array.isArray(array) && array.length > 0;
 }
 
-export { isValidValue, isNullish, isNonEmptyObject, isNonEmptyString, isEmptyObject, isNonEmptyArray };
+function isNullishOrEmpty(value) {
+  return isNullish(value) || value?.length === 0;
+}
+
+function areObjectsEqual(source = {}, object = {}) {
+  return createObjectHash(source) === createObjectHash(object);
+}
+
+function createObjectHash(object) {
+  return Base64.stringify(SHA512(JSON.stringify(object)));
+}
+
+function isValidUUID(value) {
+  return validateUUID(value);
+}
+
+export {
+  isValidValue,
+  isNullish,
+  isNonEmptyObject,
+  isNonEmptyString,
+  isEmptyObject,
+  isNonEmptyArray,
+  isNullishOrEmpty,
+  areObjectsEqual,
+  isValidUUID,
+};

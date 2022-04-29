@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { playerPropType } from '../../../utilities/prop-type-schemas';
 import { PLAYER_TYPES } from '../../../core/enums';
+import { isValidValue } from '../../../utilities/data-validation.helper';
 
 import { Icon } from '../icon';
 import PlayerEditionStyled from './PlayerEdition.styled';
@@ -27,7 +28,12 @@ export function PlayerEdition({ player, position, playersCount = 0, onChange, on
         <section>{position}</section>
       </header>
       <main>
-        <input type="text" defaultValue={player.name} disabled={player.type === PLAYER_TYPES.COMPUTER} onChange={handleChange} />
+        <input
+          type="text"
+          defaultValue={player.name}
+          disabled={player.type === PLAYER_TYPES.COMPUTER || isValidValue(player.socketId)}
+          onChange={handleChange}
+        />
       </main>
       <footer>
         <Icon name="west" clickable disabled={position === 1} onClick={handleMoveLeft} />

@@ -1,4 +1,5 @@
-import { Player, Play, Card } from '../../../core/entities';
+import { cloneDeep } from 'lodash';
+import { Player, Play, Card, Game } from '../../../core/entities';
 import { GAME_STATUSES, PLAYER_TYPES } from '../../../core/enums';
 import cardHelper from '../../../core/helpers/card.helper';
 import gameHelper from '../../../core/helpers/game.helper';
@@ -50,6 +51,24 @@ function isCardPickingEnabled(game) {
   return activePlayer?.type === PLAYER_TYPES.HUMAN;
 }
 
+function pickPenaltyCards(gameJSON) {
+  const gameInstance = createGameFromJSON(gameJSON);
+  gameInstance.pickPenaltyCards();
+
+  return gameInstance.toJSON();
+}
+
+function pickAdditionalCards(gameJSON, cardsCount = 1) {
+  const gameInstance = createGameFromJSON(gameJSON);
+  gameInstance.giveActivePlayerAdditionalCards({ cardsCount });
+
+  return gameInstance.toJSON();
+}
+
+function createGameFromJSON(gameJSON) {
+  return Game.fromJSON(cloneDeep(gameJSON));
+}
+
 export default {
   isPlayerPlaying,
   includesPlayableCards,
@@ -60,4 +79,7 @@ export default {
   chooseBestShape,
   isPenaltyCard,
   isCardPickingEnabled,
+  createGameFromJSON,
+  pickPenaltyCards,
+  pickAdditionalCards,
 };

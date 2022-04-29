@@ -9,25 +9,35 @@ export default function buildPlayer(dependencies) {
 
   return class Player {
     #id;
+    #socketId;
     #type;
     #name;
+    #creator;
     #active;
     #ranking;
     #cards;
+    #leftAt;
     #endedAt;
 
-    constructor(id, type, name, active, ranking, cards, endedAt) {
+    constructor(id, socketId, type, name, creator, active, ranking, cards, leftAt, endedAt) {
       this.#id = id;
+      this.#socketId = socketId;
       this.#type = type;
       this.name = name;
+      this.#creator = creator;
       this.#active = active;
       this.#ranking = ranking;
       this.#cards = cards;
+      this.#leftAt = leftAt;
       this.#endedAt = endedAt;
     }
 
     get id() {
       return this.#id;
+    }
+
+    get socketId() {
+      return this.#socketId;
     }
 
     set type(type) {
@@ -44,6 +54,10 @@ export default function buildPlayer(dependencies) {
 
     get name() {
       return this.#name;
+    }
+
+    get creator() {
+      return this.#creator;
     }
 
     set active(active) {
@@ -78,35 +92,49 @@ export default function buildPlayer(dependencies) {
       return this.#endedAt;
     }
 
+    set leftAt(leftAt) {
+      this.#leftAt = leftAt;
+    }
+
+    get leftAt() {
+      return this.#leftAt;
+    }
+
     toJSON() {
       const additionalJSON = {};
       if (this.#cards) additionalJSON.cards = this.#cards.map((card) => card.toJSON());
 
       return dataHelper.removeUndefinedProperties({
         id: this.#id,
+        socketId: this.#socketId,
         type: this.#type,
         name: this.#name,
+        creator: this.#creator,
         active: this.#active,
         ranking: this.#ranking,
+        leftAt: this.#leftAt,
         endedAt: this.#endedAt,
         ...additionalJSON,
       });
     }
 
-    static fromJSON({ id, type, name, active, ranking, cards, endedAt } = {}) {
+    static fromJSON({ id, creator, socketId, type, name, active, ranking, cards, leftAt, endedAt } = {}) {
       return new Player(
         id,
+        socketId,
         type,
         name,
+        creator,
         active,
         ranking,
         isNonEmptyArray(cards) ? cards.map((card) => (isNonEmptyObject(card) ? Card.fromJSON(card) : card)) : [],
+        leftAt,
         endedAt
       );
     }
 
-    static newInstance({ id = idHelper.generateId(), type, name, active = true, ranking, cards = [] } = {}) {
-      return new Player(id, type, name, active, ranking, cards);
+    static newInstance({ id = idHelper.generateId(), socketId, type, name, creator = false, active = true, ranking, cards = [], leftAt } = {}) {
+      return new Player(id, socketId, type, name, creator, active, ranking, cards, leftAt);
     }
 
     includesPenaltyCards() {
