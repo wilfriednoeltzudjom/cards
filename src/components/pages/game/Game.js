@@ -72,6 +72,11 @@ export default function Game() {
     if (game.id) dispatch(getMessages({ game }));
   }, [game.id]);
 
+  function handleHideShapeModal() {
+    shapeModal.handleHide();
+    setPlayingOff();
+  }
+
   function handleSelectCard(card) {
     if (playingRef.current) return;
     playingRef.current = true;
@@ -99,7 +104,7 @@ export default function Game() {
   }
 
   function handleSelectShape(shape) {
-    shapeModal.handleHide();
+    handleHideShapeModal();
     dispatch(playCard({ card: selectedCard, player: game.activePlayer, shape, webSocket })).then((action) => {
       dispatchGameUsingWebSocket(action);
       setPlayingOff();
@@ -191,7 +196,7 @@ export default function Game() {
         </main>
       </GameStyled>
 
-      <Modal title="Choose shape" shown={shapeModal.shown} onHide={shapeModal.handleHide}>
+      <Modal title="Choose shape" shown={shapeModal.shown} onHide={handleHideShapeModal}>
         <SelectShapeForm onSelectShape={handleSelectShape} />
       </Modal>
 
