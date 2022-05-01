@@ -8,7 +8,7 @@ import { joinClassNames } from '../../../utilities/styles.helper';
 import ButtonStyled from './Button.styled';
 import { isNullish } from '../../../utilities/data-validation.helper';
 
-export function Button({ icon, children, disabled = false, onClick }) {
+export function Button({ icon, type = 'button', children, disabled = false, onClick }) {
   function handleClick(evt) {
     if (!disabled) animationHelper.createRipple(evt);
     if (onClick) {
@@ -19,7 +19,7 @@ export function Button({ icon, children, disabled = false, onClick }) {
   }
 
   return (
-    <ButtonStyled className={joinClassNames(isNullish(children) ? 'action' : '')} disabled={disabled} onClick={handleClick}>
+    <ButtonStyled type={type} className={joinClassNames(isNullish(children) ? 'action' : '')} disabled={disabled} onClick={handleClick}>
       <main>
         {isValidElement(icon) && cloneElement(icon, { className: 'icon', size: 'sm' })} {children}
       </main>
@@ -28,6 +28,7 @@ export function Button({ icon, children, disabled = false, onClick }) {
 }
 Button.propTypes = {
   icon: PropTypes.element,
+  type: PropTypes.string,
   children: childrenPropType,
   disabled: PropTypes.bool,
   onClick: PropTypes.func,

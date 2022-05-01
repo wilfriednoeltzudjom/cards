@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { Card, Game, Player } from '../../core/entities';
-import { GAME_MODES } from '../../core/enums';
+import { GAME_MODES, GAME_STATUSES } from '../../core/enums';
 import gameHelper from '../../core/helpers/game.helper';
 import { isNonEmptyObject } from '../../utilities/data-validation.helper';
 import { waitFor } from '../../utilities/duration.helper';
@@ -12,6 +12,7 @@ import gameService from './game.service';
 const initialState = {
   game: sessionHelper.retrieveGame() || {},
   player: sessionHelper.retrievePlayer() || {},
+  messages: [],
 };
 
 export const startGame = createAsyncThunk('games/startGame', ({ players }) => {
@@ -111,8 +112,9 @@ export const getGame = createAsyncThunk('games/getGame', async ({ gameId, filter
   dispatch(showLoading());
 
   try {
-    const { data: game } = await gameService.getGame(gameId, filters);
+    const { data: game = {} } = await gameService.getGame(gameId, filters);
     if (onSuccess) onSuccess();
+    updateOrClearSession(game);
 
     return { game };
   } finally {
@@ -129,7 +131,7 @@ export const gameJoined = createAsyncThunk('games/gameJoined', async ({ game, pl
   return { game, player };
 });
 
-export const gameLeft = createAsyncThunk('games/gameJoined', async () => {
+export const gameLeft = createAsyncThunk('games/gameLeft', async () => {
   sessionHelper.clearPlayer();
 
   return {};
@@ -137,7 +139,7 @@ export const gameLeft = createAsyncThunk('games/gameJoined', async () => {
 
 export const gameUpdated = createAsyncThunk('games/gameUpdated', async ({ game }) => {
   if (sessionHelper.isStorageEnabled()) {
-    sessionHelper.saveGame(game);
+    updateOrClearSession(game);
 
     return { game };
   }
@@ -145,10 +147,32 @@ export const gameUpdated = createAsyncThunk('games/gameUpdated', async ({ game }
   return {};
 });
 
+export const getMessages = createAsyncThunk('games/getMessages', async ({ game }, { dispatch }) => {
+  dispatch(showLoading());
+
+  try {
+    const { data: messages } = await gameService.getMessages(game.id);
+
+    return { messages };
+  } finally {
+    dispatch(hideLoading());
+  }
+});
+
+function updateOrClearSession(game) {
+  if (game.status === GAME_STATUSES.CANCELLED) {
+    sessionHelper.clearSession();
+  } else sessionHelper.saveGame(game);
+}
+
 export const gameSlice = createSlice({
   name: 'game',
   initialState,
-  reducers: {},
+  reducers: {
+    refreshMessages(state, action) {
+      state.messages = action.payload.messages;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(startGame.fulfilled, (state, action) => {
       state.game = action.payload.game;
@@ -172,6 +196,7 @@ export const gameSlice = createSlice({
     builder.addCase(exitGame.fulfilled, (state) => {
       state.game = {};
       state.player = {};
+      state.messages = [];
     });
     builder.addCase(createGame.fulfilled, (state, action) => {
       state.game = action.payload.game;
@@ -191,7 +216,12 @@ export const gameSlice = createSlice({
         state.game = action.payload.game;
       }
     });
+
+    builder.addCase(getMessages.fulfilled, (state, action) => {
+      state.messages = action.payload.messages;
+    });
   },
 });
 
+export const { refreshMessages } = gameSlice.actions;
 export default gameSlice.reducer;

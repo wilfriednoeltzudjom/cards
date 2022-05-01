@@ -24,3 +24,10 @@ export const playerPropType = PropTypes.shape({
 });
 
 export const gamePropType = PropTypes.shape({});
+
+export const messagePropType = PropTypes.shape({
+  id: PropTypes.string,
+  createdAt: PropTypes.string,
+  playerName: PropTypes.string,
+  content: PropTypes.string,
+});

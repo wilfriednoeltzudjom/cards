@@ -48,6 +48,8 @@ function getIconName(name, variant) {
     exit: 'logout',
     prize: 'emoji_events',
     offline: 'cloud_off',
+    shrink: 'unfold_less',
+    expand: 'unfold_more',
   }[name];
 
   return (isNonEmptyObject(iconName) ? iconName[variant] : iconName) || name;

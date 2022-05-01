@@ -3,13 +3,13 @@ import { Redirect, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import gameViewmodel from './game.viewmodel';
-import { exitGame, pickAdditionalCards, pickPenaltyCards, playCard } from '../../../store/games/game.slice';
+import { exitGame, getMessages, pickAdditionalCards, pickPenaltyCards, playCard } from '../../../store/games/game.slice';
 import { ROUTE_STARTUP } from '../../../routes';
 import { areObjectsEqual, isNonEmptyObject } from '../../../utilities/data-validation.helper';
 import { CARD_VALUES, GAME_MODES, GAME_STATUSES, PLAYER_TYPES } from '../../../core/enums';
 import sessionHelper from '../../../utilities/session.helper';
 
-import { Button, Icon, Modal, Platform, Player } from '../../library';
+import { Button, ChatBox, Icon, Modal, Platform, Player } from '../../library';
 import GameStyled from './Game.styled';
 import useDisclosure from '../../hooks/useDisclosure';
 import { SelectShapeForm } from './forms';
@@ -18,11 +18,12 @@ import useWebSocket from '../../hooks/useWebSocket';
 export default function Game() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { game, player: currentPlayer } = useSelector((state) => state.gameState);
+  const { game, player: currentPlayer, messages } = useSelector((state) => state.gameState);
   const shapeModal = useDisclosure();
   const [selectedCard, setSelectedCard] = useState({});
   const webSocket = useWebSocket();
   const gameRef = useRef();
+  const playingRef = useRef();
 
   useEffect(() => {
     if (game.status === GAME_STATUSES.ENDED) return;
@@ -50,7 +51,7 @@ export default function Game() {
       };
       setTimeout(() => {
         chosenCardStrategies[activePlayer.type]();
-      }, 1200);
+      }, 500);
     }
 
     function handleHumanPlayer() {}
@@ -67,37 +68,13 @@ export default function Game() {
     }
   }, [game.activePlayer]);
 
-  // useEffect(() => {
-  //   if (game.mode !== GAME_MODES.ONLINE || game.status === GAME_STATUSES.ENDED) return;
-
-  //   const { activePlayer } = game;
-  //   if (activePlayer.id !== currentPlayer.id) return;
-
-  //   if (isNonEmptyObject(activePlayer)) {
-  //     document.getElementById(activePlayer.id).scrollIntoView();
-  //     if (!activePlayer.active) return;
-  //     if (gameViewmodel.isPenaltyCardActive(game) && !gameViewmodel.includesPenaltyCards(activePlayer)) {
-  //       if (game.penaltyEnabled) {
-  //         const gameInstance = gameViewmodel.createGameFromJSON(game);
-  //         gameInstance.pickPenaltyCards();
-  //         setTimeout(() => {
-  //           webSocket.updateGame({ game: gameInstance.toJSON() });
-  //         }, 500);
-  //         return;
-  //       }
-  //     }
-  //     if (!gameViewmodel.includesPlayableCards(activePlayer, game)) {
-  //       const gameInstance = gameViewmodel.createGameFromJSON(game);
-  //       gameInstance.giveActivePlayerAdditionalCards({ cardsCount: 1 });
-  //       setTimeout(() => {
-  //         webSocket.updateGame({ game: gameInstance.toJSON() });
-  //       }, 500);
-  //       return;
-  //     }
-  //   }
-  // }, [game.activePlayer]);
+  useEffect(() => {
+    if (game.id) dispatch(getMessages({ game }));
+  }, [game.id]);
 
   function handleSelectCard(card) {
+    if (playingRef.current) return;
+    playingRef.current = true;
     if (gameViewmodel.isPlayableCard(card, game)) {
       if (gameViewmodel.isPenaltyCardActive(game) && !gameViewmodel.isPenaltyCard(card) && game.penaltyEnabled) {
         dispatchPickPenaltyCards({ timeout: 100 });
@@ -117,6 +94,7 @@ export default function Game() {
     }
     dispatch(playCard({ card, player: activePlayer, webSocket })).then((action) => {
       dispatchGameUsingWebSocket(action);
+      setPlayingOff();
     });
   }
 
@@ -124,12 +102,23 @@ export default function Game() {
     shapeModal.handleHide();
     dispatch(playCard({ card: selectedCard, player: game.activePlayer, shape, webSocket })).then((action) => {
       dispatchGameUsingWebSocket(action);
+      setPlayingOff();
     });
     setSelectedCard({});
   }
 
   function handlePickAdditionalCard() {
-    if (game.activePlayer.type === PLAYER_TYPES.HUMAN) dispatchPickAdditionalCards();
+    if (playingRef.current) return;
+    if (game.activePlayer.type === PLAYER_TYPES.HUMAN) {
+      playingRef.current = true;
+      dispatchPickAdditionalCards();
+    }
+  }
+
+  function handleSendMessage({ content }) {
+    if (game.mode === GAME_MODES.ONLINE) {
+      webSocket.sendMessage({ game, player: currentPlayer, content });
+    }
   }
 
   function handleExitGame() {
@@ -140,15 +129,17 @@ export default function Game() {
     });
   }
 
-  function dispatchPickPenaltyCards({ timeout = 800 } = {}) {
+  function dispatchPickPenaltyCards({ timeout = 500 } = {}) {
+    setPlayingOn();
     setTimeout(() => {
-      dispatch(pickPenaltyCards({ webSocket }));
+      dispatch(pickPenaltyCards({ webSocket })).then(setPlayingOff);
     }, timeout);
   }
 
-  function dispatchPickAdditionalCards({ timeout = 800 } = {}) {
+  function dispatchPickAdditionalCards({ timeout = 500 } = {}) {
+    setPlayingOn();
     setTimeout(() => {
-      dispatch(pickAdditionalCards({ webSocket }));
+      dispatch(pickAdditionalCards({ webSocket })).then(setPlayingOff);
     }, timeout);
   }
 
@@ -158,6 +149,14 @@ export default function Game() {
       webSocket.updateGame({ game: payload.game });
       gameRef.current = payload.game;
     }
+  }
+
+  function setPlayingOn() {
+    playingRef.current = true;
+  }
+
+  function setPlayingOff() {
+    playingRef.current = false;
   }
 
   return isNonEmptyObject(game) ? (
@@ -183,7 +182,11 @@ export default function Game() {
                 />
               ))}
             </section>
-            <Platform game={game} cardPickingEnabled={gameViewmodel.isCardPickingEnabled(game)} onPickCard={handlePickAdditionalCard} />
+            <Platform
+              game={game}
+              cardPickingEnabled={gameViewmodel.isCardPickingEnabled(game, currentPlayer)}
+              onPickCard={handlePickAdditionalCard}
+            />
           </div>
         </main>
       </GameStyled>
@@ -191,6 +194,8 @@ export default function Game() {
       <Modal title="Choose shape" shown={shapeModal.shown} onHide={shapeModal.handleHide}>
         <SelectShapeForm onSelectShape={handleSelectShape} />
       </Modal>
+
+      {game.mode === GAME_MODES.ONLINE && <ChatBox messages={messages} onSubmit={handleSendMessage} />}
     </>
   ) : (
     <Redirect to={ROUTE_STARTUP} />

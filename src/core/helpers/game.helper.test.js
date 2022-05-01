@@ -6,7 +6,7 @@ import { CARD_COLORS, CARD_SHAPES, CARD_VALUES } from '../enums';
 describe('helpers - game', () => {
   const shared = {};
 
-  describe.only('get next active player index', () => {
+  describe('get next active player index', () => {
     beforeEach(() => {
       shared.players = factoryHelper.generatePlayersNames({ count: 5 }).map((name) => Player.newInstance({ name }));
     });
@@ -62,7 +62,7 @@ describe('helpers - game', () => {
 
   describe('choose best playable card', () => {
     describe('case not including joker', () => {
-      test.only('should properly choose best playable card', () => {
+      test('should properly choose best playable card', () => {
         const activeCard = Card.newInstance({ value: CARD_VALUES.FOUR, shape: CARD_SHAPES.SPADE, color: CARD_COLORS.BLACK });
         const cards = [
           { value: CARD_VALUES.A, shape: CARD_SHAPES.SPADE, color: CARD_COLORS.BLACK },

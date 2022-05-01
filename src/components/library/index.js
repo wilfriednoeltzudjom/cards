@@ -9,3 +9,4 @@ export * from './shape';
 export * from './anchor';
 export * from './rule';
 export * from './loading';
+export * from './chat_box';

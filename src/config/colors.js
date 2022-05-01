@@ -11,7 +11,7 @@ export default {
   scrollbar: {
     background: '#FFFDFA',
     thumb: {
-      default: '#5A4C43',
+      default: '#FFFFFF',
       hover: '#BB8760',
     },
   },

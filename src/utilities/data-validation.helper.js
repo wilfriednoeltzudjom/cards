@@ -27,7 +27,12 @@ function isNonEmptyArray(array) {
 }
 
 function isNullishOrEmpty(value) {
-  return isNullish(value) || value?.length === 0;
+  return (
+    isNullish(value) ||
+    (Array.isArray(value) && value.length === 0) ||
+    (typeof value === 'string' && value.length === 0) ||
+    (typeof value === 'object' && Object.keys(value).length === 0)
+  );
 }
 
 function areObjectsEqual(source = {}, object = {}) {

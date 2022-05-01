@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useCallback, useRef } from 'react';
 import { io } from 'socket.io-client';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { gameJoined, gameLeft, gameUpdated } from '../../store/games/game.slice';
+import { gameJoined, gameLeft, gameUpdated, refreshMessages } from '../../store/games/game.slice';
 import { showLoading } from '../../store/ui/loading.slice';
 
 export const WebSocketContext = createContext();
@@ -16,6 +16,8 @@ const EVENTS = {
   UPDATE_GAME: 'game:update',
   GET_GAME: 'game:get',
   GAME_GETTED: 'game:getted',
+  SEND_MESSAGE: 'message:send',
+  MESSAGE_RECEIVED: 'message:received',
 };
 
 export default function webSocketProvider({ children }) {
@@ -34,6 +36,10 @@ export default function webSocketProvider({ children }) {
 
   const updateGame = useCallback(({ game }) => {
     if (socket.current.connected) socket.current.emit(EVENTS.UPDATE_GAME, { game });
+  }, []);
+
+  const sendMessage = useCallback(({ game, player, content }) => {
+    if (socket.current.connected) socket.current.emit(EVENTS.SEND_MESSAGE, { game, player, content });
   }, []);
 
   useEffect(() => {
@@ -71,6 +77,10 @@ export default function webSocketProvider({ children }) {
       dispatch(gameUpdated({ game }));
     };
 
+    const handleMessageReceived = ({ messages = [] }) => {
+      dispatch(refreshMessages({ messages }));
+    };
+
     socket.current.on(EVENTS.GET_GAME, handleGameGetted);
 
     socket.current.on(EVENTS.GAME_JOINED, handleGameJoined);
@@ -79,13 +89,16 @@ export default function webSocketProvider({ children }) {
 
     socket.current.on(EVENTS.GAME_UPDATED, handleGameUpdated);
 
+    socket.current.on(EVENTS.MESSAGE_RECEIVED, handleMessageReceived);
+
     return () => {
       socket.current.off(EVENTS.GET_GAME, handleGameGetted);
       socket.current.off(EVENTS.GAME_JOINED, handleGameJoined);
       socket.current.off(EVENTS.GAME_LEFT, handleGameLeft);
       socket.current.off(EVENTS.GAME_UPDATED, handleGameUpdated);
+      socket.current.off(EVENTS.MESSAGE_RECEIVED, handleMessageReceived);
     };
   }, [socket.current, gameState.game, gameState.player]);
 
-  return <WebSocketContext.Provider value={{ joinGame, leaveGame, updateGame }}>{children}</WebSocketContext.Provider>;
+  return <WebSocketContext.Provider value={{ joinGame, leaveGame, updateGame, sendMessage }}>{children}</WebSocketContext.Provider>;
 }

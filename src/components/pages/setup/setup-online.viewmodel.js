@@ -32,4 +32,15 @@ function mustRedirectToGamePage({ game }) {
   return isNonEmptyObject(game) && game.status === GAME_STATUSES.STARTED;
 }
 
-export default { isPlayerFormValid, createPlayer, canShowDeletePlayerButton, mustRedirectToStartupPage, mustRedirectToGamePage };
+function canShowSetupOnlinePageContent({ game }) {
+  return isNonEmptyObject(game) && game.status === GAME_STATUSES.PENDING;
+}
+
+export default {
+  isPlayerFormValid,
+  createPlayer,
+  canShowDeletePlayerButton,
+  mustRedirectToStartupPage,
+  mustRedirectToGamePage,
+  canShowSetupOnlinePageContent,
+};

@@ -4,4 +4,8 @@ function currentDate() {
   return moment.now();
 }
 
-export default { currentDate };
+function calculateElapsedTime({ date = moment(), dateUnit = 'minutes' } = {}) {
+  return moment().diff(date, dateUnit);
+}
+
+export default { currentDate, calculateElapsedTime };

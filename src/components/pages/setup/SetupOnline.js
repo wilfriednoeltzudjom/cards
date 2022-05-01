@@ -84,17 +84,11 @@ export default function SetupOnline() {
     if (setupViewmodel.canStartGame(game.players)) dispatch(startGameOnline({ webSocket }));
   }
 
-  useEffect(() => {
-    return () => {
-      sessionHelper.clearPlayer();
-    };
-  }, []);
-
   return setupOnlineViewmodel.mustRedirectToStartupPage({ game }) ? (
     <Redirect to={ROUTE_STARTUP} />
   ) : setupOnlineViewmodel.mustRedirectToGamePage({ game }) ? (
     <Redirect to={ROUTE_GAME} />
-  ) : (
+  ) : setupOnlineViewmodel.canShowSetupOnlinePageContent({ game }) ? (
     <>
       <SetupOnlineStyled>
         <header>
@@ -143,5 +137,7 @@ export default function SetupOnline() {
         />
       </Modal>
     </>
+  ) : (
+    <></>
   );
 }

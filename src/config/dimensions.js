@@ -9,8 +9,8 @@ export default {
     width: '18rem',
   },
   scrollbar: {
-    width: '5px',
-    borderRadius: '4px',
+    width: '0.5rem',
+    borderRadius: '0.25rem',
     maxHeight: '100px',
   },
   modal: {
@@ -21,5 +21,11 @@ export default {
   },
   footer: {
     minHeight: '5rem',
+  },
+  chatBox: {
+    width: '25rem',
+    messages: {
+      height: '8rem',
+    },
   },
 };

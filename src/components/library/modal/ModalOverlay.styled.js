@@ -30,5 +30,5 @@ export default styled.div`
 `;
 
 function getBackground({ showOverlay }) {
-  return showOverlay ? 'rgba(0, 0, 0, 0.35)' : 'none';
+  return showOverlay ? 'rgba(0, 0, 0, 0.38)' : 'none';
 }

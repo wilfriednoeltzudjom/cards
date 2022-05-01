@@ -1,6 +1,6 @@
 import { cloneDeep } from 'lodash';
 import { Player, Play, Card, Game } from '../../../core/entities';
-import { GAME_STATUSES, PLAYER_TYPES } from '../../../core/enums';
+import { GAME_MODES, GAME_STATUSES, PLAYER_TYPES } from '../../../core/enums';
 import cardHelper from '../../../core/helpers/card.helper';
 import gameHelper from '../../../core/helpers/game.helper';
 import { isNonEmptyObject } from '../../../utilities/data-validation.helper';
@@ -43,12 +43,12 @@ function isPenaltyCard(card) {
   return cardHelper.isPenaltyCard(Card.fromJSON(card));
 }
 
-function isCardPickingEnabled(game) {
+function isCardPickingEnabled(game, currentPlayer) {
   if (game.status === GAME_STATUSES.ENDED) return false;
 
-  const { activePlayer = {} } = game;
+  const { activePlayer = {}, mode } = game;
 
-  return activePlayer?.type === PLAYER_TYPES.HUMAN;
+  return mode === GAME_MODES.OFFLINE ? activePlayer?.type === PLAYER_TYPES.HUMAN : currentPlayer?.id === activePlayer?.id;
 }
 
 function pickPenaltyCards(gameJSON) {
