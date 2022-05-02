@@ -195,6 +195,10 @@ function generatePlayer() {
   return Player.newInstance({ type: PLAYER_TYPES.COMPUTER, name: factoryHelper.generatePlayerName() });
 }
 
+function countActivePlayers(players = []) {
+  return players.filter((player) => player.active).length;
+}
+
 export default {
   isPlayValid,
   generateCardSet,
@@ -207,4 +211,5 @@ export default {
   getNextDirectActivePlayerIndex,
   chooseBestShape,
   generatePlayer,
+  countActivePlayers,
 };

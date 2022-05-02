@@ -371,7 +371,7 @@ export default function buildGame(dependencies) {
     updateActivePlayerAfterPlay() {
       if (this.#activePlayer.cards.length === 0) {
         const lastPlay = this.#activePlays[this.#activePlays.length - 1];
-        if (lastPlay.card.value === CARD_VALUES.A) {
+        if (lastPlay.card.value === CARD_VALUES.A && gameHelper.countActivePlayers(this.#players) === 2) {
           this.giveActivePlayerAdditionalCards({ cardsCount: 1 });
         } else {
           this.#activePlayer.active = false;

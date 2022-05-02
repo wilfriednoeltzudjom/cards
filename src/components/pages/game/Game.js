@@ -51,7 +51,7 @@ export default function Game() {
       };
       setTimeout(() => {
         chosenCardStrategies[activePlayer.type]();
-      }, 350);
+      }, 500);
     }
 
     function handleHumanPlayer() {}
@@ -83,12 +83,12 @@ export default function Game() {
     playingRef.current = true;
     if (gameViewmodel.isPlayableCard(card, game)) {
       if (gameViewmodel.isPenaltyCardActive(game) && !gameViewmodel.isPenaltyCard(card) && game.penaltyEnabled) {
-        dispatchPickPenaltyCards({ timeout: 75 });
+        dispatchPickPenaltyCards({ timeout: 100 });
         return;
       }
 
       processPlayingCardForHuman(card);
-    } else dispatchPickAdditionalCards({ timeout: 75 });
+    } else dispatchPickAdditionalCards({ timeout: 100 });
   }
 
   function processPlayingCardForHuman(card) {
@@ -135,14 +135,14 @@ export default function Game() {
     });
   }
 
-  function dispatchPickPenaltyCards({ timeout = 250 } = {}) {
+  function dispatchPickPenaltyCards({ timeout = 350 } = {}) {
     setPlayingOn();
     setTimeout(() => {
       dispatch(pickPenaltyCards({ webSocket })).then(setPlayingOff);
     }, timeout);
   }
 
-  function dispatchPickAdditionalCards({ timeout = 250 } = {}) {
+  function dispatchPickAdditionalCards({ timeout = 350 } = {}) {
     setPlayingOn();
     setTimeout(() => {
       dispatch(pickAdditionalCards({ webSocket })).then(setPlayingOff);

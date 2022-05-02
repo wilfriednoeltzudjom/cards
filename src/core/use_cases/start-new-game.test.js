@@ -3,7 +3,7 @@ import { PLAYER_TYPES } from '../enums';
 import factoryHelper from '../../tools/factory.helper';
 import gameHelper from '../helpers/game.helper';
 
-describe('usecase - start new game', () => {
+describe('Usecase - start new game', () => {
   const shared = {};
 
   describe('case of two players', () => {
@@ -16,6 +16,4 @@ describe('usecase - start new game', () => {
       game.startGame();
     });
   });
-
-  describe('case of more than two players', () => {});
 });
