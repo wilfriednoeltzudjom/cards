@@ -17,10 +17,16 @@ function includesPenaltyCards(player) {
   return Player.fromJSON(player).includesPenaltyCards();
 }
 
-function chooseComputerCard(player, { activePlays, chosenShape, penaltyEnabled }) {
-  const cardInstance = Player.fromJSON(player).chooseNextCard(formatLastPlayedCard(activePlays), chosenShape, penaltyEnabled);
+function chooseComputerCard(player, { activePlays, chosenShape, penaltyEnabled, activePlayer, players = [] }) {
+  const result = Player.fromJSON(player).chooseNextCard(formatLastPlayedCard(activePlays), {
+    chosenShape,
+    penaltyEnabled,
+    activePlayer,
+    players,
+  });
+  if (result.card) result.card = result.card.toJSON();
 
-  return cardInstance ? cardInstance.toJSON() : {};
+  return result;
 }
 
 function formatLastPlayedCard(plays) {
@@ -35,8 +41,8 @@ function isPlayableCard(card, { activePlays, chosenShape }) {
   return gameHelper.isPlayValid(card, activePlays[activePlays.length - 1].card, chosenShape);
 }
 
-function chooseBestShape(player) {
-  return gameHelper.chooseBestShape(Player.fromJSON(player).cards);
+function chooseBestShape(player, card) {
+  return gameHelper.chooseBestShape(Player.fromJSON(player).cards, card);
 }
 
 function isPenaltyCard(card) {

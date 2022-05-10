@@ -145,11 +145,11 @@ export default function buildPlayer(dependencies) {
       return gameHelper.filterPlayableCards(this.#cards, activePlay.card, chosenShape).length > 0;
     }
 
-    chooseNextCard(activePlay, chosenShape, penaltyEnabled) {
+    chooseNextCard(activePlay, { chosenShape, penaltyEnabled, activePlayer, players = [] } = {}) {
       const activeCard = activePlay.card;
-      if (cardHelper.isPenaltyCard(activeCard) && penaltyEnabled) return cardHelper.filterPenaltyCards(this.#cards, { ordered: true })[0];
+      if (cardHelper.isPenaltyCard(activeCard) && penaltyEnabled) return { card: cardHelper.filterPenaltyCards(this.#cards, { ordered: true })[0] };
 
-      return gameHelper.chooseBestPlayableCard(activeCard, this.#cards, chosenShape);
+      return gameHelper.chooseBestPlayableCard(activeCard, this.#cards, { chosenShape, activePlayer, players });
     }
   };
 }

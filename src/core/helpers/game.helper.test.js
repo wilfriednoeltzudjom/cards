@@ -2,6 +2,7 @@ import gameHelper from './game.helper';
 import { Card, Player } from '../entities';
 import factoryHelper from '../../tools/factory.helper';
 import { CARD_COLORS, CARD_SHAPES, CARD_VALUES } from '../enums';
+import { createPlayersForTest } from '../../tests/factories/common.factory';
 
 describe('helpers - game', () => {
   const shared = {};
@@ -61,6 +62,72 @@ describe('helpers - game', () => {
   });
 
   describe('choose best playable card', () => {
+    test('should choose a penalty as the best playable card if there is only one remaining player with one remaining card', () => {
+      const players = createPlayersForTest([
+        {
+          cards: [
+            { value: CARD_VALUES.THREE, shape: CARD_SHAPES.DIAMOND, color: CARD_COLORS.RED },
+            { value: CARD_VALUES.A, shape: CARD_SHAPES.DIAMOND, color: CARD_COLORS.RED },
+            { value: CARD_VALUES.EIGHT, shape: CARD_SHAPES.DIAMOND, color: CARD_COLORS.RED },
+            { value: CARD_VALUES.SEVEN, shape: CARD_SHAPES.SPADE, color: CARD_COLORS.BLACK },
+          ],
+        },
+        { cards: [{ value: CARD_VALUES.EIGHT, shape: CARD_SHAPES.SPADE, color: CARD_COLORS.BLACK }] },
+      ]);
+      const activeCard = Card.newInstance({ value: CARD_VALUES.THREE, shape: CARD_SHAPES.SPADE, color: CARD_COLORS.BLACK });
+
+      const { card } = gameHelper.chooseBestPlayableCard(activeCard, players[0].cards, { activePlayer: players[0], players });
+
+      expect(card.value).toBe(CARD_VALUES.SEVEN);
+    });
+
+    test('should choose <JACK> as the best playable card if there is only one remaining player with one remaining card (without double <A>)', () => {
+      const players = createPlayersForTest([
+        {
+          cards: [
+            { value: CARD_VALUES.EIGHT, shape: CARD_SHAPES.DIAMOND, color: CARD_COLORS.RED },
+            { value: CARD_VALUES.A, shape: CARD_SHAPES.SPADE, color: CARD_COLORS.BLACK },
+            { value: CARD_VALUES.THREE, shape: CARD_SHAPES.SPADE, color: CARD_COLORS.BLACK },
+            { value: CARD_VALUES.JACK, shape: CARD_SHAPES.DIAMOND, color: CARD_COLORS.RED },
+          ],
+        },
+        { cards: [{ value: CARD_VALUES.EIGHT, shape: CARD_SHAPES.SPADE, color: CARD_COLORS.BLACK }] },
+      ]);
+      const activeCard = Card.newInstance({ value: CARD_VALUES.JACK, shape: CARD_SHAPES.SPADE, color: CARD_COLORS.BLACK });
+
+      const { card } = gameHelper.chooseBestPlayableCard(activeCard, players[0].cards, {
+        activePlayer: players[0],
+        players,
+        chosenShape: CARD_SHAPES.SPADE,
+      });
+
+      expect(card.value).toBe(CARD_VALUES.JACK);
+    });
+
+    test('should choose <A> as the best playable card if there is only one remaining player with one remaining card (with double <A>)', () => {
+      const players = createPlayersForTest([
+        {
+          cards: [
+            { value: CARD_VALUES.EIGHT, shape: CARD_SHAPES.DIAMOND, color: CARD_COLORS.RED },
+            { value: CARD_VALUES.A, shape: CARD_SHAPES.SPADE, color: CARD_COLORS.BLACK },
+            { value: CARD_VALUES.A, shape: CARD_SHAPES.DIAMOND, color: CARD_COLORS.RED },
+            { value: CARD_VALUES.JACK, shape: CARD_SHAPES.DIAMOND, color: CARD_COLORS.RED },
+          ],
+        },
+        { cards: [{ value: CARD_VALUES.EIGHT, shape: CARD_SHAPES.SPADE, color: CARD_COLORS.BLACK }] },
+      ]);
+      const activeCard = Card.newInstance({ value: CARD_VALUES.JACK, shape: CARD_SHAPES.SPADE, color: CARD_COLORS.BLACK });
+
+      const { card } = gameHelper.chooseBestPlayableCard(activeCard, players[0].cards, {
+        activePlayer: players[0],
+        players,
+        chosenShape: CARD_SHAPES.SPADE,
+      });
+
+      expect(card.value).toBe(CARD_VALUES.A);
+      expect(card.shape).toBe(CARD_SHAPES.SPADE);
+    });
+
     describe('case not including joker', () => {
       test('should properly choose best playable card', () => {
         const activeCard = Card.newInstance({ value: CARD_VALUES.FOUR, shape: CARD_SHAPES.SPADE, color: CARD_COLORS.BLACK });
@@ -72,10 +139,10 @@ describe('helpers - game', () => {
           { value: CARD_VALUES.SEVEN, shape: CARD_SHAPES.SPADE, color: CARD_COLORS.BLACK },
         ].map((cardData) => Card.newInstance(cardData));
 
-        const bestPlayableCard = gameHelper.chooseBestPlayableCard(activeCard, cards);
+        const { card } = gameHelper.chooseBestPlayableCard(activeCard, cards);
 
-        expect(bestPlayableCard.value).toBe(CARD_VALUES.A);
-        expect(bestPlayableCard.shape).toBe(CARD_SHAPES.SPADE);
+        expect(card.value).toBe(CARD_VALUES.A);
+        expect(card.shape).toBe(CARD_SHAPES.SPADE);
       });
     });
 
@@ -90,10 +157,10 @@ describe('helpers - game', () => {
           { value: CARD_VALUES.JACK, shape: CARD_SHAPES.SPADE, color: CARD_COLORS.BLACK },
         ].map((cardData) => Card.newInstance(cardData));
 
-        const bestPlayableCard = gameHelper.chooseBestPlayableCard(activeCard, cards);
+        const { card } = gameHelper.chooseBestPlayableCard(activeCard, cards);
 
-        expect(bestPlayableCard.value).toBe(CARD_VALUES.TWO);
-        expect(bestPlayableCard.shape).toBe(CARD_SHAPES.HEART);
+        expect(card.value).toBe(CARD_VALUES.TWO);
+        expect(card.shape).toBe(CARD_SHAPES.HEART);
       });
     });
   });

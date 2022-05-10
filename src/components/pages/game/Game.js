@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import gameViewmodel from './game.viewmodel';
 import { exitGame, getMessages, pickAdditionalCards, pickPenaltyCards, playCard } from '../../../store/games/game.slice';
 import { ROUTE_STARTUP } from '../../../routes';
-import { areObjectsEqual, isNonEmptyObject } from '../../../utilities/data-validation.helper';
+import { areObjectsEqual, isNonEmptyObject, isNullish } from '../../../utilities/data-validation.helper';
 import { CARD_VALUES, GAME_MODES, GAME_STATUSES, PLAYER_TYPES } from '../../../core/enums';
 import sessionHelper from '../../../utilities/session.helper';
 
@@ -57,11 +57,11 @@ export default function Game() {
     function handleHumanPlayer() {}
 
     function handleComputerPlayer() {
-      const card = gameViewmodel.chooseComputerCard(activePlayer, game);
+      const { card, shape } = gameViewmodel.chooseComputerCard(activePlayer, game);
       if (isNonEmptyObject(card)) {
-        const args = { card, player: activePlayer };
-        if (card.value === CARD_VALUES.JACK) {
-          args.shape = gameViewmodel.chooseBestShape(activePlayer);
+        const args = { card, shape, player: activePlayer };
+        if (card.value === CARD_VALUES.JACK && isNullish(shape)) {
+          args.shape = gameViewmodel.chooseBestShape(activePlayer, card);
         }
         dispatch(playCard(args));
       }
@@ -69,7 +69,7 @@ export default function Game() {
   }, [game.activePlayer]);
 
   useEffect(() => {
-    if (game.id) dispatch(getMessages({ game }));
+    if (game.id && game.mode === GAME_MODES.ONLINE) dispatch(getMessages({ game }));
   }, [game.id]);
 
   function handleHideShapeModal() {

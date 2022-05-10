@@ -1,6 +1,6 @@
 import { arrayHelper, dataHelper } from '../../tools';
 import factoryHelper from '../../tools/factory.helper';
-import { isNullish } from '../../utilities/data-validation.helper';
+import { isNonEmptyArray, isNonEmptyObject, isNullish } from '../../utilities/data-validation.helper';
 import { Card, Player } from '../entities';
 import { CARD_COLORS, CARD_SHAPES, CARD_VALUES, PLAYER_TYPES } from '../enums';
 import cardHelper from './card.helper';
@@ -48,6 +48,13 @@ function getPlayerRanking(game) {
   return game.players.filter((player) => player.active) + 1;
 }
 
+/**
+ * Get next active player index
+ * @param {*} activePlayer
+ * @param {*} players
+ * @param {*} param2
+ * @returns
+ */
 function getNextActivePlayerIndex(activePlayer, players, { excludedPlayersCount = 0, reverse = false } = {}) {
   const activePlayerIndex = getActivePlayerIndex(players, activePlayer);
   const reveredPlayers = reverse ? reversePlayers(players, activePlayerIndex) : players;
@@ -94,13 +101,49 @@ function filterPlayableCards(cards, activeCard, chosenShape) {
   return cards.filter((card) => isPlayValid(card, activeCard, chosenShape));
 }
 
-function chooseBestPlayableCard(activeCard, cards, chosenShape) {
+/**
+ * Choose best playable card
+ * @param {*} activeCard
+ * @param {*} cards
+ * @param {*} chosenShape
+ * @param {*} args
+ * @param {*} args.activePlayer
+ * @param {*} args.players
+ * @returns
+ */
+function chooseBestPlayableCard(activeCard, cards, { chosenShape, activePlayer, players = [] } = {}) {
+  if (players.length === 2 && activePlayer instanceof Player) {
+    const remainingPlayer = players.find((player) => player.id !== activePlayer.id);
+    if (remainingPlayer.cards.length === 1) {
+      const result = chooseBestPlayableCardIfOpponentOnlyHasOneRemainingCardLeft(activeCard, cards, chosenShape);
+      if (isNonEmptyObject(result)) return result;
+    }
+  }
+
   const globalTree = [];
   generatePlaysTree(activeCard, cards, chosenShape, globalTree);
 
-  const bestTreeBranch = selectBestTreeBranch(globalTree);
+  const treeBranches = orderTreeBranches(globalTree);
+  const bestBranch = treeBranches[0];
+  if (bestBranch[0].value === CARD_VALUES.JACK) {
+    return generateResultForJack(bestBranch);
+  }
 
-  return bestTreeBranch[0];
+  return { card: treeBranches[0][0] };
+}
+
+function chooseBestPlayableCardIfOpponentOnlyHasOneRemainingCardLeft(activeCard, cards, chosenShape) {
+  const tree = [];
+  generatePlaysTree(activeCard, cards, chosenShape, tree);
+
+  const treeBranches = sortTreeBranches(tree);
+  const bestBranch = filterTreeBranchesThatStartWithPenalty(treeBranches)[0];
+  if (isNonEmptyArray(bestBranch)) return { card: bestBranch[0] };
+
+  if (activeCard.value === CARD_VALUES.JACK && chosenShape && !doesIncludeBranchWithAtLeastTwoConsecutiveAsWithDifferentShapes(tree)) {
+    const result = generateResultForJack(filterTreeBranchesThatStartWithJack(treeBranches)[0]);
+    if (isNonEmptyObject(result)) return result;
+  }
 }
 
 function generatePlaysTree(activeCard, cards, chosenShape, tree, cardTree = []) {
@@ -114,7 +157,7 @@ function generatePlaysTree(activeCard, cards, chosenShape, tree, cardTree = []) 
     let nodeChosenShape;
     const subTree = [...cardTree, card];
     if (card.value === CARD_VALUES.JACK) {
-      nodeChosenShape = chooseBestShape(cards);
+      nodeChosenShape = chooseBestShape(cards, card);
     }
 
     generatePlaysTree(card, filterActiveCards(cards, subTree), nodeChosenShape, tree, subTree);
@@ -127,7 +170,7 @@ function filterActiveCards(cards, cardTree) {
   return cards.filter((card) => !activeCardsIds.includes(card.id));
 }
 
-function chooseBestShape(cards) {
+function chooseBestShape(cards, jackCard) {
   if (cards.length === 1) return cards[0].shape;
 
   const shapes = cards
@@ -135,7 +178,7 @@ function chooseBestShape(cards) {
     .map((card) => card.shape)
     .filter(dataHelper.isValidValue);
 
-  return shapes
+  const chosenCard = shapes
     .map((shape) => {
       return {
         shape,
@@ -144,13 +187,13 @@ function chooseBestShape(cards) {
     })
     .sort((prevItem, nextItem) => {
       return nextItem.count - prevItem.count;
-    })[0].shape;
+    })[0];
+
+  return isNonEmptyObject(chosenCard) ? chosenCard.shape : jackCard.shape;
 }
 
-function selectBestTreeBranch(tree) {
-  const sortedTree = tree.sort((prevBranch, nextBranch) => {
-    return nextBranch.length - prevBranch.length;
-  });
+function orderTreeBranches(tree) {
+  const sortedTree = sortTreeBranches(tree);
 
   return sortedTree
     .filter((branch) => branch.length === sortedTree[0].length)
@@ -170,7 +213,13 @@ function selectBestTreeBranch(tree) {
         return -1;
 
       return 0;
-    })[0];
+    });
+}
+
+function sortTreeBranches(tree) {
+  return tree.sort((prevBranch, nextBranch) => {
+    return nextBranch.length - prevBranch.length;
+  });
 }
 
 function getLastCardValue(branch) {
@@ -183,6 +232,45 @@ function getPenaltyCardsPositionsWeight(branch) {
   }, 0);
 }
 
+function filterTreeBranchesThatStartWithJack(treeBranches = []) {
+  return treeBranches.filter((branch) => branch[0].value === CARD_VALUES.JACK);
+}
+
+function filterTreeBranchesThatStartWithPenalty(treeBranches = []) {
+  return treeBranches.filter((branch) => [CARD_VALUES.SEVEN, CARD_VALUES.JOKER].includes(branch[0].value));
+}
+
+function generateResultForJack(bestBranch) {
+  const result = {};
+  if (isNonEmptyArray(bestBranch)) {
+    result.card = bestBranch[0];
+    if (bestBranch.length > 1) result.shape = bestBranch[1].shape || bestBranch[0].shape;
+
+    return result;
+  }
+
+  return result;
+}
+
+function doesIncludeBranchWithAtLeastTwoConsecutiveAsWithDifferentShapes(tree) {
+  return tree.some((branch) => {
+    if (branch.length > 1) {
+      if (branch[0].value === CARD_VALUES.A) {
+        const remainingAs = branch.filter((card, index) => index > 0 && card.value === CARD_VALUES.A);
+        if (remainingAs.length > 0 && remainingAs[remainingAs.length - 1].shape !== branch[0].shape) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  });
+}
+
+/**
+ * Generate players
+ * @returns
+ */
 function generatePlayers() {
   const playersCount = [1, 2, 3][Math.round(Math.random() * 3)];
   const players = Array(playersCount).fill().map(generatePlayer);
