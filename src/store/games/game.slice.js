@@ -15,8 +15,12 @@ const initialState = {
   messages: [],
 };
 
-export const startGame = createAsyncThunk('games/startGame', ({ players }) => {
-  const gameInstance = Game.newInstance({ cards: gameHelper.generateCardSet(), players });
+export const startGame = createAsyncThunk('games/startGame', ({ players, cardsSetsCount, initialCardsPerPlayerCount }) => {
+  const gameInstance = Game.newInstance({
+    cards: gameHelper.generateCardsSets({ cardsSetsCount }),
+    players,
+    initialCardsPerPlayerCount,
+  });
   gameInstance.startGame();
 
   const game = gameInstance.toJSON();

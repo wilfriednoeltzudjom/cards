@@ -15,6 +15,10 @@ function isPlayValid(playedCard, lastPlayedCard, chosenShape) {
   return chosenShape ? chosenShape === playedCard.shape : playedCard.shape === lastPlayedCard.shape || playedCard.value === lastPlayedCard.value;
 }
 
+function generateCardsSets({ cardsSetsCount = 1 } = {}) {
+  return Array(cardsSetsCount).fill().map(generateCardSet).flat();
+}
+
 function generateCardSet() {
   const commonCards = generateCommonCards();
   const specialCards = generateSpecialCards();
@@ -300,4 +304,5 @@ export default {
   chooseBestShape,
   generatePlayer,
   countActivePlayers,
+  generateCardsSets,
 };

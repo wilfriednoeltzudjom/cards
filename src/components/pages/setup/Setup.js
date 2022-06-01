@@ -11,12 +11,16 @@ import { ROUTE_GAME, ROUTE_STARTUP } from '../../../routes';
 
 import { Button, Icon, PlayerEdition } from '../../library';
 import SetupStyled from './Setup.styled';
+import useForm from '../../hooks/useForm';
+import GameSettingsForm from './forms/GameSettingsForm';
 
 export default function Setup() {
   const dispatch = useDispatch();
   const history = useHistory();
   const { game } = useSelector((state) => state.gameState);
   const [players, setPlayers] = useState([]);
+  const gameSettingsForm = useForm({ initialState: setupViewmodel.getGameSettingsFormInitialState() });
+
   useEffect(() => {
     setPlayers(gameHelper.generatePlayers());
   }, []);
@@ -26,7 +30,7 @@ export default function Setup() {
   }
 
   function handleStartGame() {
-    if (setupViewmodel.canStartGame(players)) dispatch(startGame({ players }));
+    if (setupViewmodel.canStartGame(players)) dispatch(startGame({ players, ...gameSettingsForm.formState }));
   }
 
   function handlePlayerChange(selectedPlayer, { value }) {
@@ -90,8 +94,11 @@ export default function Setup() {
           <Button icon={<Icon name="add" size="lg" />} disabled={players.length === 4} onClick={handleAddPlayer} />
         </aside>
       </main>
+
+      <GameSettingsForm onChange={gameSettingsForm.handleChange} />
+
       <footer>
-        <Button disabled={!setupViewmodel.canStartGame(players)} onClick={handleStartGame}>
+        <Button disabled={!setupViewmodel.canStartGame(players, gameSettingsForm.formState)} onClick={handleStartGame}>
           Start game
         </Button>
       </footer>

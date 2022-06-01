@@ -10,3 +10,6 @@ export * from './anchor';
 export * from './rule';
 export * from './loading';
 export * from './chat_box';
+export * from './input';
+export * from './label';
+export * from './form_group';

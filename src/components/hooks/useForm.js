@@ -1,14 +1,14 @@
 import { useState, useCallback } from 'react';
 import { dataHelper } from '../../tools';
 
-export default function ({ onSubmit } = {}) {
-  const [formState, setFormState] = useState({});
+export default function ({ onSubmit, initialState = {} } = {}) {
+  const [formState, setFormState] = useState(initialState);
   const [formErrors, setFormErrors] = useState({});
 
-  const handleChange = useCallback(({ name, value }) => {
+  const handleChange = useCallback(({ name, value, type, valueAsNumber }) => {
     setFormState((currentFormState) => ({
       ...currentFormState,
-      [name]: value,
+      [name]: type === 'number' ? valueAsNumber : value,
     }));
     setFormErrors((currentFormErrors) => {
       if (currentFormErrors[name]) {

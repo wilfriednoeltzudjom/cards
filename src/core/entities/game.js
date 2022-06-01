@@ -200,6 +200,7 @@ export default function buildGame(dependencies) {
         chosenShape: this.#chosenShape,
         penaltyEnabled: this.#penaltyEnabled,
         effectEnabled: this.#effectEnabled,
+        initialCardsPerPlayerCount: this.#initialCardsPerPlayerCount,
         ...additionalJSON,
       });
     }

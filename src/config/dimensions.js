@@ -28,4 +28,9 @@ export default {
       height: '8rem',
     },
   },
+  input: {
+    width: {
+      sm: '10rem',
+    },
+  },
 };
